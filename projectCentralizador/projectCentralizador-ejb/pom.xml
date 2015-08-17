@@ -38,6 +38,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>co.uniandes.edu.ecos</groupId>
+            <artifactId>Plataforma</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>
