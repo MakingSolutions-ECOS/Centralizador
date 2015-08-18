@@ -5,10 +5,13 @@
  */
 package co.uniandes.edu.ecos.dto;
 
+import javax.ejb.Stateless;
+
 /**
  *
  * @author John Dany
  */
+@Stateless
 public class MetadataTipoDocumentoDto {
 
     private Integer codigoMetadataTipoDocumento;
