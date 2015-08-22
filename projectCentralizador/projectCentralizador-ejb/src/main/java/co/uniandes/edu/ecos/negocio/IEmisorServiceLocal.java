@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * @author John Dany
  */
 @Local
-public interface IMetadataServiceLocal {
+public interface IEmisorServiceLocal {
     
-    RespuestaMetadata obtenerTiposDocumentoMetadata ();
+    RespuestaEmisor obtenerEmisores ();
 }
