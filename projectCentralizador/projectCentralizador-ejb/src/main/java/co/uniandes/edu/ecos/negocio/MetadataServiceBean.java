@@ -10,6 +10,7 @@ import co.uniandes.edu.ecos.persistencia.MetadataTipoDocumento;
 import co.uniandes.edu.ecos.plataforma.Mapper;
 import co.uniandes.edu.service.Response.RespuestaMetadata;
 import java.util.List;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author John Dany
  */
+@PermitAll
 @Stateless
 public class MetadataServiceBean implements IMetadataServiceLocal {
 
