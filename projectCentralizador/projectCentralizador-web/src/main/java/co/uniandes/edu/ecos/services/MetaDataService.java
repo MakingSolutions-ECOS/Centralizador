@@ -16,7 +16,7 @@ import javax.jws.WebParam;
  *
  * @author John Dany
  */
-@WebService(serviceName = "ServicioWebCentralizador")
+@WebService(serviceName = "MetaDataService")
 public class MetaDataService {
 
     @EJB
