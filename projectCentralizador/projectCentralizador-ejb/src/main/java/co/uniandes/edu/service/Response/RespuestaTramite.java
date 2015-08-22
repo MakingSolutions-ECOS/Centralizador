@@ -5,7 +5,7 @@
  */
 package co.uniandes.edu.service.Response;
 
-import co.uniandes.edu.ecos.persistencia.Tramite;
+import co.uniandes.edu.ecos.dto.TramiteDto;
 import java.util.List;
 
 /**
@@ -14,20 +14,20 @@ import java.util.List;
  */
 public class RespuestaTramite extends RespuestaService {
 
-    private List<Tramite> tramites;
+    private List<TramiteDto> tramites;
 
     public RespuestaTramite() {
     }
 
-    public RespuestaTramite(List<Tramite> tramites) {
+    public RespuestaTramite(List<TramiteDto> tramites) {
         this.tramites = tramites;
     }
 
-    public List<Tramite> getTramites() {
+    public List<TramiteDto> getTramiteDtos() {
         return tramites;
     }
 
-    public void setTramites(List<Tramite> tramites) {
+    public void setTramiteDtos(List<TramiteDto> tramites) {
         this.tramites = tramites;
     }
 
