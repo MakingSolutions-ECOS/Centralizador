@@ -5,10 +5,10 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
-import co.uniandes.edu.ecos.dto.*;
-import co.uniandes.edu.ecos.persistencia.*;
+import co.uniandes.edu.ecos.dto.EmisorDto;
+import co.uniandes.edu.ecos.persistencia.Emisor;
 import co.uniandes.edu.ecos.plataforma.Mapper;
-import co.uniandes.edu.service.Response.*;
+import co.uniandes.edu.service.Response.RespuestaEmisor;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,12 +31,20 @@ public class EmisorServiceBean implements IEmisorServiceLocal {
      */
     @Override
     public RespuestaEmisor obtenerEmisores() {
-        RespuestaEmisor respuestaEmisor = new RespuestaEmisor();
-        List<Emisor> emisores= em.createNamedQuery("Emisor.findAll",Emisor.class).getResultList();
-        for(Emisor emisor : emisores){            
-             EmisorDto emisorDto = Mapper.copyCompleto(emisor, EmisorDto.class, false);
-             respuestaEmisor.getEmisores().add(emisorDto);            
+        RespuestaEmisor emisorRes = new RespuestaEmisor();
+        try {
+            List<Emisor> emisores = em.createNamedQuery("Emisor.findAll", Emisor.class).getResultList();
+            for (Emisor emisor : emisores) {
+                EmisorDto emisorDto = Mapper.copyCompleto(emisor, EmisorDto.class, false);
+                emisorRes.getEmisores().add(emisorDto);
+            }
+        } catch (IllegalArgumentException argumentException) {
+            emisorRes.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
+            emisorRes.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+        } catch (Exception exception) {
+            emisorRes.setErrorMensaje("La consulta de Emisor envió excepción general");
+            emisorRes.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
-        return respuestaEmisor;
+        return emisorRes;
     }
 }

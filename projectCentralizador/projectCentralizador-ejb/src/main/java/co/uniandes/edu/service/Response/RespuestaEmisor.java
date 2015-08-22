@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  *
- * @author John Dany
+ * @author Camilo Marroquin
  */
-public class RespuestaEmisor {
+public class RespuestaEmisor extends RespuestaService{
     
     private List<EmisorDto> Emisores;
 

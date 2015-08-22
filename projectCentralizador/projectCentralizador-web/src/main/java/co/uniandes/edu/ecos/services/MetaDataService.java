@@ -20,18 +20,7 @@ import javax.jws.WebParam;
 public class MetaDataService {
 
     @EJB
-    private IMetadataServiceLocal metaDataServiceBean;
-
-    /**
-     * This is a sample web service operation
-     *
-     * @param txt
-     * @return
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hola " + txt + " !";
-    }
+    private IMetadataServiceLocal metaDataServiceBean;  
 
     /**
      * Web service operation
