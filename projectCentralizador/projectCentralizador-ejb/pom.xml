@@ -43,13 +43,7 @@
             <artifactId>Plataforma</artifactId>
             <version>1.0</version>
             <type>jar</type>
-        </dependency>
-         <dependency>
-            <groupId>co.uniandes.edu.ecos</groupId>
-            <artifactId>projectCentralizador-service</artifactId>
-            <version>1.0</version>
-            <type>jar</type>            
-        </dependency>
+        </dependency>         
     </dependencies>
 
     <build>
