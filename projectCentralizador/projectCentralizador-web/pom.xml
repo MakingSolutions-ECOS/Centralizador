@@ -37,7 +37,7 @@
             <artifactId>projectCentralizador-ejb</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>         
     </dependencies>
 
     <build>
