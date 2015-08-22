@@ -9,6 +9,7 @@ import co.uniandes.edu.ecos.dto.MetadataTipoDocumentoDto;
 import co.uniandes.edu.ecos.persistencia.MetadataTipoDocumento;
 import co.uniandes.edu.ecos.plataforma.Mapper;
 import co.uniandes.edu.service.Response.RespuestaMetadata;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

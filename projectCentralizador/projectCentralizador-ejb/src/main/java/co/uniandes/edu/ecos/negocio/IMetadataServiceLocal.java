@@ -5,7 +5,7 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
-import co.uniandes.edu.service.Response.*;
+import co.uniandes.edu.service.Response.RespuestaMetadata;
 import javax.ejb.Local;
 
 /**
