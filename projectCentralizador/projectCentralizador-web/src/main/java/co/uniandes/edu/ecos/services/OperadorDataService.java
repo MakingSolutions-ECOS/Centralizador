@@ -16,17 +16,16 @@ import javax.jws.WebParam;
  *
  * @author John Dany
  */
-@WebService(serviceName = "MetaDataService")
-public class MetaDataService {
+@WebService(serviceName = "OperadorDataService")
+public class OperadorDataService {
 
     @EJB
     private IMetadataServiceLocal metaDataServiceBean;
 
     /**
      * This is a sample web service operation
-     *
      * @param txt
-     * @return
+     * @return 
      */
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -41,8 +40,8 @@ public class MetaDataService {
     @WebMethod(operationName = "obtenerMetadataTiposDocumentos")
     public RespuestaMetadata obtenerMetadataTiposDocumentos() {
         //TODO write your implementation code here:
-        RespuestaMetadata metadata = new RespuestaMetadata();
-        metadata = metaDataServiceBean.obtenerTiposDocumentoMetadata();
+       RespuestaMetadata metadata=metaDataServiceBean.obtenerTiposDocumentoMetadata();     
+      
         return metadata;
     }
 }

@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.uniandes.edu.ecos.services;
+package co.uniandes.edu.ecos.negocio;
+
+import javax.ejb.Local;
 
 /**
  *
  * @author Your Name
  */
-public class OperadorService {
+@Local
+public interface OperadorServiceBeanLocal {
     
 }

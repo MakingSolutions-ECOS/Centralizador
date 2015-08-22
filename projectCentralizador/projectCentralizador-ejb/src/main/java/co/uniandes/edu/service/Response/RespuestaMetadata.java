@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author John Dany
  */
-public class RespuestaMetadata {
+public class RespuestaMetadata extends RespuestaService{
 
     public RespuestaMetadata() {
         this.tiposDocumentoMetaData = new ArrayList<>();
