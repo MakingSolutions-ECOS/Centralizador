@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "MUNICIPIO")
@@ -41,7 +41,9 @@ public class Municipio implements Serializable {
     @NotNull
     @Column(name = "CODIGO_MUNICIPIO")
     private Integer codigoMunicipio;
-    @Size(max = 50)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "NOMBRE_MUNICIPIO")
     private String nombreMunicipio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoMunicipio")
@@ -55,6 +57,11 @@ public class Municipio implements Serializable {
 
     public Municipio(Integer codigoMunicipio) {
         this.codigoMunicipio = codigoMunicipio;
+    }
+
+    public Municipio(Integer codigoMunicipio, String nombreMunicipio) {
+        this.codigoMunicipio = codigoMunicipio;
+        this.nombreMunicipio = nombreMunicipio;
     }
 
     public Integer getCodigoMunicipio() {

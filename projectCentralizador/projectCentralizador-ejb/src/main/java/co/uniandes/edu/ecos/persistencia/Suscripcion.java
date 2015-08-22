@@ -7,25 +7,24 @@ package co.uniandes.edu.ecos.persistencia;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "SUSCRIPCION")
@@ -33,7 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Suscripcion.findAll", query = "SELECT s FROM Suscripcion s"),
     @NamedQuery(name = "Suscripcion.findByCodigoSubscripcion", query = "SELECT s FROM Suscripcion s WHERE s.codigoSubscripcion = :codigoSubscripcion"),
-    @NamedQuery(name = "Suscripcion.findByCodigoOperador", query = "SELECT s FROM Suscripcion s WHERE s.codigoOperador = :codigoOperador"),
     @NamedQuery(name = "Suscripcion.findByDetalleSubscripcion", query = "SELECT s FROM Suscripcion s WHERE s.detalleSubscripcion = :detalleSubscripcion"),
     @NamedQuery(name = "Suscripcion.findByFecha", query = "SELECT s FROM Suscripcion s WHERE s.fecha = :fecha")})
 public class Suscripcion implements Serializable {
@@ -43,11 +41,9 @@ public class Suscripcion implements Serializable {
     @NotNull
     @Column(name = "CODIGO_SUBSCRIPCION")
     private Integer codigoSubscripcion;
-    @Column(name = "CODIGO_OPERADOR")
-    private Integer codigoOperador;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 40)
+    @Size(min = 1, max = 100)
     @Column(name = "DETALLE_SUBSCRIPCION")
     private String detalleSubscripcion;
     @Basic(optional = false)
@@ -55,8 +51,9 @@ public class Suscripcion implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @OneToMany(mappedBy = "codigoSubscripcion")
-    private List<Operador> operadorList;
+    @JoinColumn(name = "CODIGO_OPERADOR", referencedColumnName = "CODIGO_OPERADOR")
+    @ManyToOne
+    private Operador codigoOperador;
 
     public Suscripcion() {
     }
@@ -79,14 +76,6 @@ public class Suscripcion implements Serializable {
         this.codigoSubscripcion = codigoSubscripcion;
     }
 
-    public Integer getCodigoOperador() {
-        return codigoOperador;
-    }
-
-    public void setCodigoOperador(Integer codigoOperador) {
-        this.codigoOperador = codigoOperador;
-    }
-
     public String getDetalleSubscripcion() {
         return detalleSubscripcion;
     }
@@ -103,13 +92,12 @@ public class Suscripcion implements Serializable {
         this.fecha = fecha;
     }
 
-    @XmlTransient
-    public List<Operador> getOperadorList() {
-        return operadorList;
+    public Operador getCodigoOperador() {
+        return codigoOperador;
     }
 
-    public void setOperadorList(List<Operador> operadorList) {
-        this.operadorList = operadorList;
+    public void setCodigoOperador(Operador codigoOperador) {
+        this.codigoOperador = codigoOperador;
     }
 
     @Override

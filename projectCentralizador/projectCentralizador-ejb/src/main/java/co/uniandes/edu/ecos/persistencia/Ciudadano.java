@@ -7,7 +7,9 @@ package co.uniandes.edu.ecos.persistencia;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,16 +17,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "CIUDADANO")
@@ -32,7 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Ciudadano.findAll", query = "SELECT c FROM Ciudadano c"),
     @NamedQuery(name = "Ciudadano.findByCodigoCiudadano", query = "SELECT c FROM Ciudadano c WHERE c.codigoCiudadano = :codigoCiudadano"),
-    @NamedQuery(name = "Ciudadano.findByCodigoTramite", query = "SELECT c FROM Ciudadano c WHERE c.codigoTramite = :codigoTramite"),
     @NamedQuery(name = "Ciudadano.findByHabilitadoCiudadano", query = "SELECT c FROM Ciudadano c WHERE c.habilitadoCiudadano = :habilitadoCiudadano"),
     @NamedQuery(name = "Ciudadano.findByPrimerNombre", query = "SELECT c FROM Ciudadano c WHERE c.primerNombre = :primerNombre"),
     @NamedQuery(name = "Ciudadano.findBySegundoNombre", query = "SELECT c FROM Ciudadano c WHERE c.segundoNombre = :segundoNombre"),
@@ -42,7 +45,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ciudadano.findByFechaExpedicionIdentificacion", query = "SELECT c FROM Ciudadano c WHERE c.fechaExpedicionIdentificacion = :fechaExpedicionIdentificacion"),
     @NamedQuery(name = "Ciudadano.findByTelefonoFijo", query = "SELECT c FROM Ciudadano c WHERE c.telefonoFijo = :telefonoFijo"),
     @NamedQuery(name = "Ciudadano.findByCelular", query = "SELECT c FROM Ciudadano c WHERE c.celular = :celular"),
-    @NamedQuery(name = "Ciudadano.findByDireccion", query = "SELECT c FROM Ciudadano c WHERE c.direccion = :direccion")})
+    @NamedQuery(name = "Ciudadano.findByDireccion", query = "SELECT c FROM Ciudadano c WHERE c.direccion = :direccion"),
+    @NamedQuery(name = "Ciudadano.findByCorreo", query = "SELECT c FROM Ciudadano c WHERE c.correo = :correo")})
 public class Ciudadano implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,8 +54,6 @@ public class Ciudadano implements Serializable {
     @NotNull
     @Column(name = "CODIGO_CIUDADANO")
     private Integer codigoCiudadano;
-    @Column(name = "CODIGO_TRAMITE")
-    private Integer codigoTramite;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HABILITADO_CIUDADANO")
@@ -89,28 +91,36 @@ public class Ciudadano implements Serializable {
     private String telefonoFijo;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "CELULAR")
-    private int celular;
+    private String celular;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
     @Column(name = "DIRECCION")
     private String direccion;
-    @JoinColumn(name = "CODIGO_TIPO_PERSONA", referencedColumnName = "CODIGO_TIPO_PERSONA")
-    @ManyToOne(optional = false)
-    private TipoPersona codigoTipoPersona;
-    @JoinColumn(name = "CODIGO_TIPO_IDENTIFICACION", referencedColumnName = "CODIGO_TIPO_IDENTIFICACION")
-    @ManyToOne(optional = false)
-    private TipoIdentificacion codigoTipoIdentificacion;
-    @JoinColumn(name = "CODIGO_OPERADOR", referencedColumnName = "CODIGO_OPERADOR")
-    @ManyToOne(optional = false)
-    private Operador codigoOperador;
-    @JoinColumn(name = "CODIGO_NACIONALIDAD", referencedColumnName = "CODIGO_NACIONALIDAD")
-    @ManyToOne
-    private Nacionalidad codigoNacionalidad;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "CORREO")
+    private String correo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCiudadano")
+    private List<Tramite> tramiteList;
     @JoinColumn(name = "CODIGO_MUNICIPIO", referencedColumnName = "CODIGO_MUNICIPIO")
     @ManyToOne(optional = false)
     private Municipio codigoMunicipio;
+    @JoinColumn(name = "CODIGO_NACIONALIDAD", referencedColumnName = "CODIGO_NACIONALIDAD")
+    @ManyToOne(optional = false)
+    private Nacionalidad codigoNacionalidad;
+    @JoinColumn(name = "CODIGO_OPERADOR", referencedColumnName = "CODIGO_OPERADOR")
+    @ManyToOne
+    private Operador codigoOperador;
+    @JoinColumn(name = "CODIGO_TIPO_IDENTIFICACION", referencedColumnName = "CODIGO_TIPO_IDENTIFICACION")
+    @ManyToOne(optional = false)
+    private TipoIdentificacion codigoTipoIdentificacion;
+    @JoinColumn(name = "CODIGO_TIPO_PERSONA", referencedColumnName = "CODIGO_TIPO_PERSONA")
+    @ManyToOne(optional = false)
+    private TipoPersona codigoTipoPersona;
 
     public Ciudadano() {
     }
@@ -119,7 +129,7 @@ public class Ciudadano implements Serializable {
         this.codigoCiudadano = codigoCiudadano;
     }
 
-    public Ciudadano(Integer codigoCiudadano, short habilitadoCiudadano, String primerNombre, String primerApellido, String identificacion, Date fechaExpedicionIdentificacion, String telefonoFijo, int celular, String direccion) {
+    public Ciudadano(Integer codigoCiudadano, short habilitadoCiudadano, String primerNombre, String primerApellido, String identificacion, Date fechaExpedicionIdentificacion, String telefonoFijo, String celular, String direccion, String correo) {
         this.codigoCiudadano = codigoCiudadano;
         this.habilitadoCiudadano = habilitadoCiudadano;
         this.primerNombre = primerNombre;
@@ -129,6 +139,7 @@ public class Ciudadano implements Serializable {
         this.telefonoFijo = telefonoFijo;
         this.celular = celular;
         this.direccion = direccion;
+        this.correo = correo;
     }
 
     public Integer getCodigoCiudadano() {
@@ -137,14 +148,6 @@ public class Ciudadano implements Serializable {
 
     public void setCodigoCiudadano(Integer codigoCiudadano) {
         this.codigoCiudadano = codigoCiudadano;
-    }
-
-    public Integer getCodigoTramite() {
-        return codigoTramite;
-    }
-
-    public void setCodigoTramite(Integer codigoTramite) {
-        this.codigoTramite = codigoTramite;
     }
 
     public short getHabilitadoCiudadano() {
@@ -211,11 +214,11 @@ public class Ciudadano implements Serializable {
         this.telefonoFijo = telefonoFijo;
     }
 
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 
@@ -227,28 +230,29 @@ public class Ciudadano implements Serializable {
         this.direccion = direccion;
     }
 
-    public TipoPersona getCodigoTipoPersona() {
-        return codigoTipoPersona;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCodigoTipoPersona(TipoPersona codigoTipoPersona) {
-        this.codigoTipoPersona = codigoTipoPersona;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public TipoIdentificacion getCodigoTipoIdentificacion() {
-        return codigoTipoIdentificacion;
+    @XmlTransient
+    public List<Tramite> getTramiteList() {
+        return tramiteList;
     }
 
-    public void setCodigoTipoIdentificacion(TipoIdentificacion codigoTipoIdentificacion) {
-        this.codigoTipoIdentificacion = codigoTipoIdentificacion;
+    public void setTramiteList(List<Tramite> tramiteList) {
+        this.tramiteList = tramiteList;
     }
 
-    public Operador getCodigoOperador() {
-        return codigoOperador;
+    public Municipio getCodigoMunicipio() {
+        return codigoMunicipio;
     }
 
-    public void setCodigoOperador(Operador codigoOperador) {
-        this.codigoOperador = codigoOperador;
+    public void setCodigoMunicipio(Municipio codigoMunicipio) {
+        this.codigoMunicipio = codigoMunicipio;
     }
 
     public Nacionalidad getCodigoNacionalidad() {
@@ -259,12 +263,28 @@ public class Ciudadano implements Serializable {
         this.codigoNacionalidad = codigoNacionalidad;
     }
 
-    public Municipio getCodigoMunicipio() {
-        return codigoMunicipio;
+    public Operador getCodigoOperador() {
+        return codigoOperador;
     }
 
-    public void setCodigoMunicipio(Municipio codigoMunicipio) {
-        this.codigoMunicipio = codigoMunicipio;
+    public void setCodigoOperador(Operador codigoOperador) {
+        this.codigoOperador = codigoOperador;
+    }
+
+    public TipoIdentificacion getCodigoTipoIdentificacion() {
+        return codigoTipoIdentificacion;
+    }
+
+    public void setCodigoTipoIdentificacion(TipoIdentificacion codigoTipoIdentificacion) {
+        this.codigoTipoIdentificacion = codigoTipoIdentificacion;
+    }
+
+    public TipoPersona getCodigoTipoPersona() {
+        return codigoTipoPersona;
+    }
+
+    public void setCodigoTipoPersona(TipoPersona codigoTipoPersona) {
+        this.codigoTipoPersona = codigoTipoPersona;
     }
 
     @Override

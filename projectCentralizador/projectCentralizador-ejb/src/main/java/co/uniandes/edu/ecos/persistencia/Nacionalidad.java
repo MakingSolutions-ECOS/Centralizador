@@ -8,6 +8,7 @@ package co.uniandes.edu.ecos.persistencia;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "NACIONALIDAD")
@@ -43,7 +44,7 @@ public class Nacionalidad implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "NOMBRE_NACIONALIAD")
     private String nombreNacionaliad;
-    @OneToMany(mappedBy = "codigoNacionalidad")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoNacionalidad")
     private List<Ciudadano> ciudadanoList;
 
     public Nacionalidad() {

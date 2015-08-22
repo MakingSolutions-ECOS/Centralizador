@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "TRAMITE_DEFINICION")
@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TramiteDefinicion.findAll", query = "SELECT t FROM TramiteDefinicion t"),
     @NamedQuery(name = "TramiteDefinicion.findByCodigoTramiteDefinicion", query = "SELECT t FROM TramiteDefinicion t WHERE t.codigoTramiteDefinicion = :codigoTramiteDefinicion"),
-    @NamedQuery(name = "TramiteDefinicion.findByCodigoCategoria", query = "SELECT t FROM TramiteDefinicion t WHERE t.codigoCategoria = :codigoCategoria"),
     @NamedQuery(name = "TramiteDefinicion.findByDefinicion", query = "SELECT t FROM TramiteDefinicion t WHERE t.definicion = :definicion"),
     @NamedQuery(name = "TramiteDefinicion.findByHabilitado", query = "SELECT t FROM TramiteDefinicion t WHERE t.habilitado = :habilitado"),
     @NamedQuery(name = "TramiteDefinicion.findByDescripcion", query = "SELECT t FROM TramiteDefinicion t WHERE t.descripcion = :descripcion")})
@@ -46,33 +45,28 @@ public class TramiteDefinicion implements Serializable {
     private Integer codigoTramiteDefinicion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CODIGO_CATEGORIA")
-    private int codigoCategoria;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 50)
     @Column(name = "DEFINICION")
     private String definicion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HABILITADO")
-    private boolean habilitado;
+    private short habilitado;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 100)
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramiteDefinicion")
-    private List<DocumentoRequeridoTramite> documentoRequeridoTramiteList;
-    @JoinColumn(name = "CODIGO_TRAMITE", referencedColumnName = "CODIGO_TRAMITE")
+    private List<Tramite> tramiteList;
+    @JoinColumn(name = "CODIGO_CATEGORIA", referencedColumnName = "CODIGO_CATEGORIA")
     @ManyToOne(optional = false)
-    private Tramite codigoTramite;
+    private CategoriasTramite codigoCategoria;
     @JoinColumn(name = "CODIGO_ENTIDAD_EMISORA", referencedColumnName = "CODIGO_ENTIDAD_EMISORA")
     @ManyToOne(optional = false)
     private Emisor codigoEntidadEmisora;
-    @JoinColumn(name = "CODIGO_TRAMITE", referencedColumnName = "CODIGO_CATEGORIA")
-    @ManyToOne(optional = false)
-    private CategoriasTramite codigoTramite1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramiteDefinicion")
+    private List<DocumentoRequeridoTramite> documentoRequeridoTramiteList;
 
     public TramiteDefinicion() {
     }
@@ -81,9 +75,8 @@ public class TramiteDefinicion implements Serializable {
         this.codigoTramiteDefinicion = codigoTramiteDefinicion;
     }
 
-    public TramiteDefinicion(Integer codigoTramiteDefinicion, int codigoCategoria, String definicion, boolean habilitado, String descripcion) {
+    public TramiteDefinicion(Integer codigoTramiteDefinicion, String definicion, short habilitado, String descripcion) {
         this.codigoTramiteDefinicion = codigoTramiteDefinicion;
-        this.codigoCategoria = codigoCategoria;
         this.definicion = definicion;
         this.habilitado = habilitado;
         this.descripcion = descripcion;
@@ -97,14 +90,6 @@ public class TramiteDefinicion implements Serializable {
         this.codigoTramiteDefinicion = codigoTramiteDefinicion;
     }
 
-    public int getCodigoCategoria() {
-        return codigoCategoria;
-    }
-
-    public void setCodigoCategoria(int codigoCategoria) {
-        this.codigoCategoria = codigoCategoria;
-    }
-
     public String getDefinicion() {
         return definicion;
     }
@@ -113,11 +98,11 @@ public class TramiteDefinicion implements Serializable {
         this.definicion = definicion;
     }
 
-    public boolean getHabilitado() {
+    public short getHabilitado() {
         return habilitado;
     }
 
-    public void setHabilitado(boolean habilitado) {
+    public void setHabilitado(short habilitado) {
         this.habilitado = habilitado;
     }
 
@@ -130,20 +115,20 @@ public class TramiteDefinicion implements Serializable {
     }
 
     @XmlTransient
-    public List<DocumentoRequeridoTramite> getDocumentoRequeridoTramiteList() {
-        return documentoRequeridoTramiteList;
+    public List<Tramite> getTramiteList() {
+        return tramiteList;
     }
 
-    public void setDocumentoRequeridoTramiteList(List<DocumentoRequeridoTramite> documentoRequeridoTramiteList) {
-        this.documentoRequeridoTramiteList = documentoRequeridoTramiteList;
+    public void setTramiteList(List<Tramite> tramiteList) {
+        this.tramiteList = tramiteList;
     }
 
-    public Tramite getCodigoTramite() {
-        return codigoTramite;
+    public CategoriasTramite getCodigoCategoria() {
+        return codigoCategoria;
     }
 
-    public void setCodigoTramite(Tramite codigoTramite) {
-        this.codigoTramite = codigoTramite;
+    public void setCodigoCategoria(CategoriasTramite codigoCategoria) {
+        this.codigoCategoria = codigoCategoria;
     }
 
     public Emisor getCodigoEntidadEmisora() {
@@ -154,12 +139,13 @@ public class TramiteDefinicion implements Serializable {
         this.codigoEntidadEmisora = codigoEntidadEmisora;
     }
 
-    public CategoriasTramite getCodigoTramite1() {
-        return codigoTramite1;
+    @XmlTransient
+    public List<DocumentoRequeridoTramite> getDocumentoRequeridoTramiteList() {
+        return documentoRequeridoTramiteList;
     }
 
-    public void setCodigoTramite1(CategoriasTramite codigoTramite1) {
-        this.codigoTramite1 = codigoTramite1;
+    public void setDocumentoRequeridoTramiteList(List<DocumentoRequeridoTramite> documentoRequeridoTramiteList) {
+        this.documentoRequeridoTramiteList = documentoRequeridoTramiteList;
     }
 
     @Override

@@ -6,22 +6,24 @@
 package co.uniandes.edu.ecos.persistencia;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "METADATA_TIPO_DOCUMENTO")
@@ -41,21 +43,20 @@ public class MetadataTipoDocumento implements Serializable {
     private Integer codigoMetadataTipoDocumento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 1)
+    @Size(min = 1, max = 50)
     @Column(name = "NOMBRE_METADATA_TIPO_DOCUMENTO")
     private String nombreMetadataTipoDocumento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     @Column(name = "DESCRIPCION_METADATA_TIPO_DOCUMENTO")
     private String descripcionMetadataTipoDocumento;
     @Basic(optional = false)
     @NotNull
     @Column(name = "VALIDEZ_DOCUMENTO")
     private int validezDocumento;
-    @JoinColumn(name = "CODIGO_DOCUMENTO_REQUERIDO", referencedColumnName = "CODIGO_DOCUMENTO_REQUERIDO")
-    @ManyToOne
-    private DocumentoRequeridoTramite codigoDocumentoRequerido;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoMetadataTipoDocumento")
+    private List<DocumentoRequeridoTramite> documentoRequeridoTramiteList;
 
     public MetadataTipoDocumento() {
     }
@@ -103,12 +104,13 @@ public class MetadataTipoDocumento implements Serializable {
         this.validezDocumento = validezDocumento;
     }
 
-    public DocumentoRequeridoTramite getCodigoDocumentoRequerido() {
-        return codigoDocumentoRequerido;
+    @XmlTransient
+    public List<DocumentoRequeridoTramite> getDocumentoRequeridoTramiteList() {
+        return documentoRequeridoTramiteList;
     }
 
-    public void setCodigoDocumentoRequerido(DocumentoRequeridoTramite codigoDocumentoRequerido) {
-        this.codigoDocumentoRequerido = codigoDocumentoRequerido;
+    public void setDocumentoRequeridoTramiteList(List<DocumentoRequeridoTramite> documentoRequeridoTramiteList) {
+        this.documentoRequeridoTramiteList = documentoRequeridoTramiteList;
     }
 
     @Override

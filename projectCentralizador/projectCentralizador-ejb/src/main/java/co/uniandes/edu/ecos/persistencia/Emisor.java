@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "EMISOR")
@@ -46,14 +46,14 @@ public class Emisor implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "NOMBRE_ENTIDAD_EMISORA")
     private String nombreEntidadEmisora;
-    @JoinColumn(name = "CODIGO_TIPO_ENTIDAD", referencedColumnName = "CODIGO_TIPO_ENTIDAD")
-    @ManyToOne(optional = false)
-    private TipoEntidad codigoTipoEntidad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoEntidadEmisora")
+    private List<TramiteDefinicion> tramiteDefinicionList;
     @JoinColumn(name = "CODIGO_GRUPO_EMISOR", referencedColumnName = "CODIGO_GRUPO_EMISOR")
     @ManyToOne(optional = false)
     private GrupoEmisor codigoGrupoEmisor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoEntidadEmisora")
-    private List<TramiteDefinicion> tramiteDefinicionList;
+    @JoinColumn(name = "CODIGO_TIPO_ENTIDAD", referencedColumnName = "CODIGO_TIPO_ENTIDAD")
+    @ManyToOne(optional = false)
+    private TipoEntidad codigoTipoEntidad;
 
     public Emisor() {
     }
@@ -83,12 +83,13 @@ public class Emisor implements Serializable {
         this.nombreEntidadEmisora = nombreEntidadEmisora;
     }
 
-    public TipoEntidad getCodigoTipoEntidad() {
-        return codigoTipoEntidad;
+    @XmlTransient
+    public List<TramiteDefinicion> getTramiteDefinicionList() {
+        return tramiteDefinicionList;
     }
 
-    public void setCodigoTipoEntidad(TipoEntidad codigoTipoEntidad) {
-        this.codigoTipoEntidad = codigoTipoEntidad;
+    public void setTramiteDefinicionList(List<TramiteDefinicion> tramiteDefinicionList) {
+        this.tramiteDefinicionList = tramiteDefinicionList;
     }
 
     public GrupoEmisor getCodigoGrupoEmisor() {
@@ -99,13 +100,12 @@ public class Emisor implements Serializable {
         this.codigoGrupoEmisor = codigoGrupoEmisor;
     }
 
-    @XmlTransient
-    public List<TramiteDefinicion> getTramiteDefinicionList() {
-        return tramiteDefinicionList;
+    public TipoEntidad getCodigoTipoEntidad() {
+        return codigoTipoEntidad;
     }
 
-    public void setTramiteDefinicionList(List<TramiteDefinicion> tramiteDefinicionList) {
-        this.tramiteDefinicionList = tramiteDefinicionList;
+    public void setCodigoTipoEntidad(TipoEntidad codigoTipoEntidad) {
+        this.codigoTipoEntidad = codigoTipoEntidad;
     }
 
     @Override

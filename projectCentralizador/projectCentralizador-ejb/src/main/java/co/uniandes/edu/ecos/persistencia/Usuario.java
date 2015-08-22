@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "USUARIO")
@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByPrimeroApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.primeroApellidoUsuario = :primeroApellidoUsuario"),
     @NamedQuery(name = "Usuario.findBySegundoApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.segundoApellidoUsuario = :segundoApellidoUsuario"),
     @NamedQuery(name = "Usuario.findByCorreoUsuario", query = "SELECT u FROM Usuario u WHERE u.correoUsuario = :correoUsuario"),
-    @NamedQuery(name = "Usuario.findByIdentificacionUsuario", query = "SELECT u FROM Usuario u WHERE u.identificacionUsuario = :identificacionUsuario"),
-    @NamedQuery(name = "Usuario.findByTipoIdentificacion", query = "SELECT u FROM Usuario u WHERE u.tipoIdentificacion = :tipoIdentificacion")})
+    @NamedQuery(name = "Usuario.findByIdentificacionUsuario", query = "SELECT u FROM Usuario u WHERE u.identificacionUsuario = :identificacionUsuario")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,16 +72,12 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "IDENTIFICACION_USUARIO")
     private String identificacionUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TIPO_IDENTIFICACION")
-    private int tipoIdentificacion;
-    @JoinColumn(name = "CODIGO_TIPO_IDENTIFICACION", referencedColumnName = "CODIGO_TIPO_IDENTIFICACION")
-    @ManyToOne(optional = false)
-    private TipoIdentificacion codigoTipoIdentificacion;
     @JoinColumn(name = "CODIGO_ROL", referencedColumnName = "CODIGO_ROL")
     @ManyToOne(optional = false)
     private Rol codigoRol;
+    @JoinColumn(name = "CODIGO_TIPO_IDENTIFICACION", referencedColumnName = "CODIGO_TIPO_IDENTIFICACION")
+    @ManyToOne(optional = false)
+    private TipoIdentificacion codigoTipoIdentificacion;
 
     public Usuario() {
     }
@@ -91,7 +86,7 @@ public class Usuario implements Serializable {
         this.codigoUsuario = codigoUsuario;
     }
 
-    public Usuario(Integer codigoUsuario, String primerNombreUsuario, String segundoNombreUsuario, String primeroApellidoUsuario, String segundoApellidoUsuario, String correoUsuario, String identificacionUsuario, int tipoIdentificacion) {
+    public Usuario(Integer codigoUsuario, String primerNombreUsuario, String segundoNombreUsuario, String primeroApellidoUsuario, String segundoApellidoUsuario, String correoUsuario, String identificacionUsuario) {
         this.codigoUsuario = codigoUsuario;
         this.primerNombreUsuario = primerNombreUsuario;
         this.segundoNombreUsuario = segundoNombreUsuario;
@@ -99,7 +94,6 @@ public class Usuario implements Serializable {
         this.segundoApellidoUsuario = segundoApellidoUsuario;
         this.correoUsuario = correoUsuario;
         this.identificacionUsuario = identificacionUsuario;
-        this.tipoIdentificacion = tipoIdentificacion;
     }
 
     public Integer getCodigoUsuario() {
@@ -158,12 +152,12 @@ public class Usuario implements Serializable {
         this.identificacionUsuario = identificacionUsuario;
     }
 
-    public int getTipoIdentificacion() {
-        return tipoIdentificacion;
+    public Rol getCodigoRol() {
+        return codigoRol;
     }
 
-    public void setTipoIdentificacion(int tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
+    public void setCodigoRol(Rol codigoRol) {
+        this.codigoRol = codigoRol;
     }
 
     public TipoIdentificacion getCodigoTipoIdentificacion() {
@@ -172,14 +166,6 @@ public class Usuario implements Serializable {
 
     public void setCodigoTipoIdentificacion(TipoIdentificacion codigoTipoIdentificacion) {
         this.codigoTipoIdentificacion = codigoTipoIdentificacion;
-    }
-
-    public Rol getCodigoRol() {
-        return codigoRol;
-    }
-
-    public void setCodigoRol(Rol codigoRol) {
-        this.codigoRol = codigoRol;
     }
 
     @Override

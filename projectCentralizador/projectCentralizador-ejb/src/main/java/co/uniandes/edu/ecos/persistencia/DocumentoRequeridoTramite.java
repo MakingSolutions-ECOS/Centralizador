@@ -6,7 +6,6 @@
 package co.uniandes.edu.ecos.persistencia;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,23 +14,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "DOCUMENTO_REQUERIDO_TRAMITE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DocumentoRequeridoTramite.findAll", query = "SELECT d FROM DocumentoRequeridoTramite d"),
-    @NamedQuery(name = "DocumentoRequeridoTramite.findByCodigoDocumentoRequerido", query = "SELECT d FROM DocumentoRequeridoTramite d WHERE d.codigoDocumentoRequerido = :codigoDocumentoRequerido"),
-    @NamedQuery(name = "DocumentoRequeridoTramite.findByCodigoMetadataTipoDocumento", query = "SELECT d FROM DocumentoRequeridoTramite d WHERE d.codigoMetadataTipoDocumento = :codigoMetadataTipoDocumento")})
+    @NamedQuery(name = "DocumentoRequeridoTramite.findByCodigoDocumentoRequerido", query = "SELECT d FROM DocumentoRequeridoTramite d WHERE d.codigoDocumentoRequerido = :codigoDocumentoRequerido")})
 public class DocumentoRequeridoTramite implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,13 +35,12 @@ public class DocumentoRequeridoTramite implements Serializable {
     @NotNull
     @Column(name = "CODIGO_DOCUMENTO_REQUERIDO")
     private Integer codigoDocumentoRequerido;
-    @Column(name = "CODIGO_METADATA_TIPO_DOCUMENTO")
-    private Integer codigoMetadataTipoDocumento;
+    @JoinColumn(name = "CODIGO_METADATA_TIPO_DOCUMENTO", referencedColumnName = "CODIGO_METADATA_TIPO_DOCUMENTO")
+    @ManyToOne(optional = false)
+    private MetadataTipoDocumento codigoMetadataTipoDocumento;
     @JoinColumn(name = "CODIGO_TRAMITE_DEFINICION", referencedColumnName = "CODIGO_TRAMITE_DEFINICION")
     @ManyToOne(optional = false)
     private TramiteDefinicion codigoTramiteDefinicion;
-    @OneToMany(mappedBy = "codigoDocumentoRequerido")
-    private List<MetadataTipoDocumento> metadataTipoDocumentoList;
 
     public DocumentoRequeridoTramite() {
     }
@@ -62,11 +57,11 @@ public class DocumentoRequeridoTramite implements Serializable {
         this.codigoDocumentoRequerido = codigoDocumentoRequerido;
     }
 
-    public Integer getCodigoMetadataTipoDocumento() {
+    public MetadataTipoDocumento getCodigoMetadataTipoDocumento() {
         return codigoMetadataTipoDocumento;
     }
 
-    public void setCodigoMetadataTipoDocumento(Integer codigoMetadataTipoDocumento) {
+    public void setCodigoMetadataTipoDocumento(MetadataTipoDocumento codigoMetadataTipoDocumento) {
         this.codigoMetadataTipoDocumento = codigoMetadataTipoDocumento;
     }
 
@@ -76,15 +71,6 @@ public class DocumentoRequeridoTramite implements Serializable {
 
     public void setCodigoTramiteDefinicion(TramiteDefinicion codigoTramiteDefinicion) {
         this.codigoTramiteDefinicion = codigoTramiteDefinicion;
-    }
-
-    @XmlTransient
-    public List<MetadataTipoDocumento> getMetadataTipoDocumentoList() {
-        return metadataTipoDocumentoList;
-    }
-
-    public void setMetadataTipoDocumentoList(List<MetadataTipoDocumento> metadataTipoDocumentoList) {
-        this.metadataTipoDocumentoList = metadataTipoDocumentoList;
     }
 
     @Override

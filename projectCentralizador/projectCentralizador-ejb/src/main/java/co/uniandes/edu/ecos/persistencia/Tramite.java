@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "TRAMITE")
@@ -39,13 +39,17 @@ public class Tramite implements Serializable {
     @NotNull
     @Column(name = "CODIGO_TRAMITE")
     private Integer codigoTramite;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramite")
-    private List<TramiteActividad> tramiteActividadList;
+    @JoinColumn(name = "CODIGO_CIUDADANO", referencedColumnName = "CODIGO_CIUDADANO")
+    @ManyToOne(optional = false)
+    private Ciudadano codigoCiudadano;
+    @JoinColumn(name = "CODIGO_TRAMITE_DEFINICION", referencedColumnName = "CODIGO_TRAMITE_DEFINICION")
+    @ManyToOne(optional = false)
+    private TramiteDefinicion codigoTramiteDefinicion;
     @JoinColumn(name = "CODIGO_TRAMITE_ESTADO", referencedColumnName = "CODIGO_TRAMITE_ESTADO")
     @ManyToOne(optional = false)
     private TramiteEstado codigoTramiteEstado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramite")
-    private List<TramiteDefinicion> tramiteDefinicionList;
+    private List<TramiteActividad> tramiteActividadList;
 
     public Tramite() {
     }
@@ -62,13 +66,20 @@ public class Tramite implements Serializable {
         this.codigoTramite = codigoTramite;
     }
 
-    @XmlTransient
-    public List<TramiteActividad> getTramiteActividadList() {
-        return tramiteActividadList;
+    public Ciudadano getCodigoCiudadano() {
+        return codigoCiudadano;
     }
 
-    public void setTramiteActividadList(List<TramiteActividad> tramiteActividadList) {
-        this.tramiteActividadList = tramiteActividadList;
+    public void setCodigoCiudadano(Ciudadano codigoCiudadano) {
+        this.codigoCiudadano = codigoCiudadano;
+    }
+
+    public TramiteDefinicion getCodigoTramiteDefinicion() {
+        return codigoTramiteDefinicion;
+    }
+
+    public void setCodigoTramiteDefinicion(TramiteDefinicion codigoTramiteDefinicion) {
+        this.codigoTramiteDefinicion = codigoTramiteDefinicion;
     }
 
     public TramiteEstado getCodigoTramiteEstado() {
@@ -80,12 +91,12 @@ public class Tramite implements Serializable {
     }
 
     @XmlTransient
-    public List<TramiteDefinicion> getTramiteDefinicionList() {
-        return tramiteDefinicionList;
+    public List<TramiteActividad> getTramiteActividadList() {
+        return tramiteActividadList;
     }
 
-    public void setTramiteDefinicionList(List<TramiteDefinicion> tramiteDefinicionList) {
-        this.tramiteDefinicionList = tramiteDefinicionList;
+    public void setTramiteActividadList(List<TramiteActividad> tramiteActividadList) {
+        this.tramiteActividadList = tramiteActividadList;
     }
 
     @Override

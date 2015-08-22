@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "ROL_PERMISO")
@@ -35,12 +35,12 @@ public class RolPermiso implements Serializable {
     @NotNull
     @Column(name = "CODIGO_ROL_PERMISO")
     private Integer codigoRolPermiso;
-    @JoinColumn(name = "CODIGO_ROL", referencedColumnName = "CODIGO_ROL")
-    @ManyToOne
-    private Rol codigoRol;
     @JoinColumn(name = "CODIGO_PERMISO", referencedColumnName = "CODIGO_PERMISO")
     @ManyToOne(optional = false)
     private Permiso codigoPermiso;
+    @JoinColumn(name = "CODIGO_ROL", referencedColumnName = "CODIGO_ROL")
+    @ManyToOne
+    private Rol codigoRol;
 
     public RolPermiso() {
     }
@@ -57,20 +57,20 @@ public class RolPermiso implements Serializable {
         this.codigoRolPermiso = codigoRolPermiso;
     }
 
-    public Rol getCodigoRol() {
-        return codigoRol;
-    }
-
-    public void setCodigoRol(Rol codigoRol) {
-        this.codigoRol = codigoRol;
-    }
-
     public Permiso getCodigoPermiso() {
         return codigoPermiso;
     }
 
     public void setCodigoPermiso(Permiso codigoPermiso) {
         this.codigoPermiso = codigoPermiso;
+    }
+
+    public Rol getCodigoRol() {
+        return codigoRol;
+    }
+
+    public void setCodigoRol(Rol codigoRol) {
+        this.codigoRol = codigoRol;
     }
 
     @Override

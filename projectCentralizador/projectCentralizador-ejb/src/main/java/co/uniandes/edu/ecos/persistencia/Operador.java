@@ -9,12 +9,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -28,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Johans Gonzalez
+ * @author John Dany
  */
 @Entity
 @Table(name = "OPERADOR")
@@ -47,29 +44,44 @@ public class Operador implements Serializable {
     @NotNull
     @Column(name = "CODIGO_OPERADOR")
     private Integer codigoOperador;
-    @Size(max = 15)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
     @Column(name = "IDENTIFICACION_OPERADOR")
     private String identificacionOperador;
-    @Size(max = 15)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "NOMBRE_OPERADOR")
     private String nombreOperador;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "FECHA_ACTIVACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActivacion;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "FECHA_ACTUALIZACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoOperador")
+    @OneToMany(mappedBy = "codigoOperador")
     private List<Ciudadano> ciudadanoList;
-    @JoinColumn(name = "CODIGO_SUBSCRIPCION", referencedColumnName = "CODIGO_SUBSCRIPCION")
-    @ManyToOne
-    private Suscripcion codigoSubscripcion;
+    @OneToMany(mappedBy = "codigoOperador")
+    private List<Suscripcion> suscripcionList;
 
     public Operador() {
     }
 
     public Operador(Integer codigoOperador) {
         this.codigoOperador = codigoOperador;
+    }
+
+    public Operador(Integer codigoOperador, String identificacionOperador, String nombreOperador, Date fechaActivacion, Date fechaActualizacion) {
+        this.codigoOperador = codigoOperador;
+        this.identificacionOperador = identificacionOperador;
+        this.nombreOperador = nombreOperador;
+        this.fechaActivacion = fechaActivacion;
+        this.fechaActualizacion = fechaActualizacion;
     }
 
     public Integer getCodigoOperador() {
@@ -121,12 +133,13 @@ public class Operador implements Serializable {
         this.ciudadanoList = ciudadanoList;
     }
 
-    public Suscripcion getCodigoSubscripcion() {
-        return codigoSubscripcion;
+    @XmlTransient
+    public List<Suscripcion> getSuscripcionList() {
+        return suscripcionList;
     }
 
-    public void setCodigoSubscripcion(Suscripcion codigoSubscripcion) {
-        this.codigoSubscripcion = codigoSubscripcion;
+    public void setSuscripcionList(List<Suscripcion> suscripcionList) {
+        this.suscripcionList = suscripcionList;
     }
 
     @Override
