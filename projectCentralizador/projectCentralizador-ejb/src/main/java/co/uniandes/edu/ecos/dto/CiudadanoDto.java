@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.uniandes.edu.ecos.dto;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -26,7 +20,6 @@ public class CiudadanoDto {
     private String celular;
     private String direccion;
     private String correo;
-    private List<TramiteDto> tramiteList;
     private MunicipioDto codigoMunicipio;
     private NacionalidadDto codigoNacionalidad;
     private OperadorDto codigoOperador;
@@ -127,14 +120,6 @@ public class CiudadanoDto {
 
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    public List<TramiteDto> getTramiteList() {
-        return tramiteList;
-    }
-
-    public void setTramiteList(List<TramiteDto> tramiteList) {
-        this.tramiteList = tramiteList;
     }
 
     public MunicipioDto getCodigoMunicipio() {

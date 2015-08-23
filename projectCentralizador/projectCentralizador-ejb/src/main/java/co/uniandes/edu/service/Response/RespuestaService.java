@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.uniandes.edu.service.Response;
 
 /**
@@ -10,11 +5,24 @@ package co.uniandes.edu.service.Response;
  * @author Your Name
  */
 public class RespuestaService {
+    
+    /**
+     * Campo que indíca si se ha presentado un error.
+     */
+    private Boolean sePresentoError;
+    
     private String respuestaService;
     private String errorOriginal;
     private String errorMensaje;
-    
 
+    public Boolean getSePresentoError() {
+        return sePresentoError;
+    }
+
+    public void setSePresentoError(Boolean sePresentoError) {
+        this.sePresentoError = sePresentoError;
+    } 
+    
     public String getRespuestaService() {
         return respuestaService;
     }
@@ -37,9 +45,5 @@ public class RespuestaService {
 
     public void setErrorMensaje(String errorMensaje) {
         this.errorMensaje = errorMensaje;
-    }
-
-  
-    
-    
+    }        
 }
