@@ -10,6 +10,7 @@ import co.uniandes.edu.ecos.persistencia.Tramite;
 import co.uniandes.edu.ecos.plataforma.Mapper;
 import co.uniandes.edu.service.Response.RespuestaTramite;
 import java.util.List;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Usuario
  */
+@PermitAll
 @Stateless
 public class TramiteServiceBean implements ITramiteServiceLocal {
 
@@ -39,9 +41,11 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
                 respuestaTramite.getTramiteDtos().add(tramiteDto);
             }
         } catch (IllegalArgumentException argumentException) {
+            respuestaTramite.setSePresentoError(true);
             respuestaTramite.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
             respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
+            respuestaTramite.setSePresentoError(true);
             respuestaTramite.setErrorMensaje("La consulta de Emisor envió excepción general");
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }

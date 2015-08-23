@@ -7,9 +7,8 @@ import co.uniandes.edu.service.Response.RespuestaCiudadano;
 import co.uniandes.edu.service.Response.RespuestaService;
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -36,6 +35,11 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
         try {
             Ciudadano entity = em.createNamedQuery("Ciudadano.findByCodigoCiudadano", Ciudadano.class).setParameter("codigoCiudadano", identificador).getSingleResult();
             respuestaCiudadano.setCiudadanoDto(Mapper.copyCompleto(entity, CiudadanoDto.class, true));
+
+        } catch (NoResultException noResultException) {
+            respuestaCiudadano.setSePresentoError(false);
+            respuestaCiudadano.setRespuestaService("Ciudadano no encontrado.");
+            respuestaCiudadano.setErrorOriginal(noResultException.getMessage());
         } catch (IllegalArgumentException argumentException) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
@@ -56,10 +60,10 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
 
     /**
      * Método para insertar un ciudadano en la base de datos.
+     *
      * @param ciudadano a insertar.
      * @return RespuestaService
      */
-    @TransactionAttribute(TransactionAttributeType.REQUIRED) 
     @Override
     public RespuestaService crearCiudadano(CiudadanoDto ciudadano) {
         RespuestaService respuestaService = new RespuestaService();
@@ -68,9 +72,9 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
                 respuestaService.setSePresentoError(true);
                 respuestaService.setErrorMensaje("Error, se ha enviado un ciudadano nulo a insertar.");
             } else {
-                em.getTransaction().begin();
+                //em.getTransaction().begin();
                 em.persist(Mapper.copyCompleto(ciudadano, Ciudadano.class, false));
-                em.getTransaction().commit();
+                //em.getTransaction().commit();
                 respuestaService.setRespuestaService("Se ha creado el ciudadano correctamente.");
             }
         } catch (Exception exception) {
