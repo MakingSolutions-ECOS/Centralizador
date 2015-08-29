@@ -5,11 +5,14 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
+import co.uniandes.edu.ecos.dto.TramiteDto;
 import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
+import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;
 import co.uniandes.edu.service.Response.RespuestaTramiteDefinicion;
 import javax.ejb.Local;
+import javax.persistence.PersistenceException;
 
 /**
  *
@@ -25,5 +28,7 @@ public interface ITramiteServiceLocal {
     public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorEntidad(Emisor e);
 
     public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorCategoria(CategoriasTramite codigoCategoria);
+
+    public RespuestaService iniciarTramite(TramiteDto tramiteDto) throws PersistenceException;
 
 }

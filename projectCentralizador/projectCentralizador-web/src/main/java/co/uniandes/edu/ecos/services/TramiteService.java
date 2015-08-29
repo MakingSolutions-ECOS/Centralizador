@@ -1,8 +1,10 @@
 package co.uniandes.edu.ecos.services;
 
+import co.uniandes.edu.ecos.dto.TramiteDto;
 import co.uniandes.edu.ecos.negocio.ITramiteServiceLocal;
 import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
+import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;
 import co.uniandes.edu.service.Response.RespuestaTramiteDefinicion;
 import javax.ejb.EJB;
@@ -15,7 +17,7 @@ import javax.jws.WebMethod;
  */
 @WebService(serviceName = "TramiteService")
 public class TramiteService {
-
+    
     @EJB
     private ITramiteServiceLocal tramiteServiceBean;
 
@@ -32,7 +34,26 @@ public class TramiteService {
     }
 
     /**
+     * Iniciar nuevo tramite
+     *
+     * @param tramiteDto
+     * @return RespuestaTramite
+     */
+    @WebMethod(operationName = "iniciarTramite")
+    public RespuestaService iniciarTramite(TramiteDto tramiteDto) {
+        RespuestaService respuestaService = new RespuestaService();
+        try {            
+            respuestaService = tramiteServiceBean.iniciarTramite(tramiteDto);
+        } catch (Exception e) {
+            respuestaService = new RespuestaService();
+            respuestaService.setErrorMensaje(e.getMessage());
+        }
+        return respuestaService;
+    }
+
+    /**
      * Obtiene todos los tramites definidos
+     *
      * @return RespuestaTramiteDefinicion
      */
     @WebMethod(operationName = "obtenerTramitesDefinicion")
@@ -44,6 +65,7 @@ public class TramiteService {
 
     /**
      * Obtiene todos los tramites definidos por entidad
+     *
      * @return RespuestaTramiteDefinicion
      */
     @WebMethod(operationName = "obtenerTramitesDefinicionPorEntidad")
@@ -56,6 +78,7 @@ public class TramiteService {
 
     /**
      * Obtiene todos los tramites definidos por categoria
+     *
      * @return RespuestaTramiteDefinicion
      */
     @WebMethod(operationName = "obtenerTramitesDefinicionPorCategoria")

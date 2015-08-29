@@ -12,14 +12,18 @@ import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
 import co.uniandes.edu.ecos.persistencia.Tramite;
 import co.uniandes.edu.ecos.persistencia.TramiteDefinicion;
+import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;
 import co.uniandes.edu.service.Response.RespuestaTramiteDefinicion;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 /**
  *
@@ -57,6 +61,34 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;
+    }
+
+    /**
+     * Metodo encargado de obtener todos los tramites
+     *
+     * @param tramiteDto
+     * @return RespuestaService
+     */
+    @Override
+    public RespuestaService iniciarTramite(TramiteDto tramiteDto) throws PersistenceException{
+        RespuestaService respuestaService = new RespuestaService();
+        try {
+            Tramite tramite = Mapper.copyCompleto(tramiteDto, Tramite.class, false);
+            em.persist(tramite);
+            respuestaService.setRespuestaService("Se ha iniciado el tramite.");
+            respuestaService.setSePresentoError(false);
+            return respuestaService;
+        }catch (IllegalArgumentException argumentException) {
+            respuestaService.setSePresentoError(true);
+            respuestaService.setErrorMensaje("Se recibió un argumento inválido");
+            respuestaService.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+            return null;
+        } catch (Exception exception) {
+            respuestaService.setSePresentoError(true);
+            respuestaService.setErrorMensaje("La creación envió excepción general");
+            respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            return null;
+        }        
     }
 
     /**
