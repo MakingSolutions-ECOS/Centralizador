@@ -7,7 +7,7 @@ package co.uniandes.edu.ecos.negocio;
 
 import co.uniandes.edu.ecos.dto.EmisorDto;
 import co.uniandes.edu.ecos.persistencia.Emisor;
-import co.uniandes.edu.ecos.plataforma.Mapper;
+import co.uniandes.edu.ecos.utilidad.Mapper;
 import co.uniandes.edu.service.Response.RespuestaEmisor;
 import java.util.List;
 import javax.ejb.Stateless;

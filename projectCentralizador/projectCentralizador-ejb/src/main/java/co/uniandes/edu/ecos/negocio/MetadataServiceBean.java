@@ -2,9 +2,11 @@ package co.uniandes.edu.ecos.negocio;
 
 import co.uniandes.edu.ecos.dto.MetadataTipoDocumentoDto;
 import co.uniandes.edu.ecos.persistencia.MetadataTipoDocumento;
-import co.uniandes.edu.ecos.plataforma.Mapper;
+import co.uniandes.edu.ecos.utilidad.Mapper;
 import co.uniandes.edu.service.Response.RespuestaMetadata;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,8 +33,12 @@ public class MetadataServiceBean implements IMetadataServiceLocal {
         RespuestaMetadata metadata = new RespuestaMetadata();
         List<MetadataTipoDocumento> metadataTipoDocumentos= em.createNamedQuery("MetadataTipoDocumento.findAll",MetadataTipoDocumento.class).getResultList();
         for(MetadataTipoDocumento tipoDocumento : metadataTipoDocumentos){            
-             MetadataTipoDocumentoDto documentoDto = Mapper.copyCompleto(tipoDocumento, MetadataTipoDocumentoDto.class, false);
-             metadata.getTiposDocumentoMetaData().add(documentoDto);            
+            try {
+                MetadataTipoDocumentoDto documentoDto = Mapper.copyCompleto(tipoDocumento, MetadataTipoDocumentoDto.class, false);            
+                metadata.getTiposDocumentoMetaData().add(documentoDto);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MetadataServiceBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return metadata;
     }

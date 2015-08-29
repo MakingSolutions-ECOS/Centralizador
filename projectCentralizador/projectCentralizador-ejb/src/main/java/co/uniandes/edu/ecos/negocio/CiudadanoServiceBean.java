@@ -3,7 +3,7 @@ package co.uniandes.edu.ecos.negocio;
 import co.uniandes.edu.ecos.dto.CiudadanoDto;
 import co.uniandes.edu.ecos.persistencia.Ciudadano;
 import co.uniandes.edu.ecos.persistencia.TipoIdentificacion;
-import co.uniandes.edu.ecos.plataforma.Mapper;
+import co.uniandes.edu.ecos.utilidad.Mapper;
 import co.uniandes.edu.service.Response.RespuestaCiudadano;
 import co.uniandes.edu.service.Response.RespuestaService;
 import javax.annotation.security.PermitAll;
