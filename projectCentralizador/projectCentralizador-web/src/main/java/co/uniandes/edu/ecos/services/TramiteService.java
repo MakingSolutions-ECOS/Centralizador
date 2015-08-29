@@ -1,7 +1,10 @@
 package co.uniandes.edu.ecos.services;
 
 import co.uniandes.edu.ecos.negocio.ITramiteServiceLocal;
+import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
+import co.uniandes.edu.ecos.persistencia.Emisor;
 import co.uniandes.edu.service.Response.RespuestaTramite;
+import co.uniandes.edu.service.Response.RespuestaTramiteDefinicion;
 import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -17,13 +20,49 @@ public class TramiteService {
     private ITramiteServiceLocal tramiteServiceBean;
 
     /**
-     * This is a sample web service operation
-     * @return 
+     * Obtiene todos los tramites iniciados
+     *
+     * @return RespuestaTramite
      */
     @WebMethod(operationName = "obtenerTramites")
     public RespuestaTramite obtenerTramites() {
         RespuestaTramite respuestaTramite = new RespuestaTramite();
         respuestaTramite = tramiteServiceBean.obtenerTramites();
+        return respuestaTramite;
+    }
+
+    /**
+     * Obtiene todos los tramites definidos
+     * @return RespuestaTramiteDefinicion
+     */
+    @WebMethod(operationName = "obtenerTramitesDefinicion")
+    public RespuestaTramiteDefinicion obtenerTramitesDefinicion() {
+        RespuestaTramiteDefinicion respuestaTramite = new RespuestaTramiteDefinicion();
+        respuestaTramite = tramiteServiceBean.obtenerTramitesDefinicion();
+        return respuestaTramite;
+    }
+
+    /**
+     * Obtiene todos los tramites definidos por entidad
+     * @return RespuestaTramiteDefinicion
+     */
+    @WebMethod(operationName = "obtenerTramitesDefinicionPorEntidad")
+    public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorEntidad(Integer codigoEntidadEmisora) {
+        RespuestaTramiteDefinicion respuestaTramite = new RespuestaTramiteDefinicion();
+        Emisor e = new Emisor(codigoEntidadEmisora);
+        respuestaTramite = tramiteServiceBean.obtenerTramitesDefinicionPorEntidad(e);
+        return respuestaTramite;
+    }
+
+    /**
+     * Obtiene todos los tramites definidos por categoria
+     * @return RespuestaTramiteDefinicion
+     */
+    @WebMethod(operationName = "obtenerTramitesDefinicionPorCategoria")
+    public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorCategoria(Integer codigoCategoria) {
+        RespuestaTramiteDefinicion respuestaTramite = new RespuestaTramiteDefinicion();
+        CategoriasTramite ct = new CategoriasTramite(codigoCategoria);
+        respuestaTramite = tramiteServiceBean.obtenerTramitesDefinicionPorCategoria(ct);
         return respuestaTramite;
     }
 }

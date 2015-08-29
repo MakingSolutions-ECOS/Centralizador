@@ -5,7 +5,10 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
+import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
+import co.uniandes.edu.ecos.persistencia.Emisor;
 import co.uniandes.edu.service.Response.RespuestaTramite;
+import co.uniandes.edu.service.Response.RespuestaTramiteDefinicion;
 import javax.ejb.Local;
 
 /**
@@ -16,5 +19,11 @@ import javax.ejb.Local;
 public interface ITramiteServiceLocal {
 
     public RespuestaTramite obtenerTramites();
-    
+
+    public RespuestaTramiteDefinicion obtenerTramitesDefinicion();
+
+    public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorEntidad(Emisor e);
+
+    public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorCategoria(CategoriasTramite codigoCategoria);
+
 }
