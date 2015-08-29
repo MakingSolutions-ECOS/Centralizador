@@ -1,6 +1,7 @@
 package co.uniandes.edu.ecos.dto;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -20,6 +21,7 @@ public class CiudadanoDto {
     private String celular;
     private String direccion;
     private String correo;
+    private List<TramiteDto> tramiteList;
     private MunicipioDto codigoMunicipio;
     private NacionalidadDto codigoNacionalidad;
     private OperadorDto codigoOperador;
@@ -160,6 +162,14 @@ public class CiudadanoDto {
 
     public void setCodigoTipoPersona(TipoPersonaDto codigoTipoPersona) {
         this.codigoTipoPersona = codigoTipoPersona;
+    }
+
+    public List<TramiteDto> getTramiteList() {
+        return tramiteList;
+    }
+
+    public void setTramiteList(List<TramiteDto> tramiteList) {
+        this.tramiteList = tramiteList;
     }
 
 }
