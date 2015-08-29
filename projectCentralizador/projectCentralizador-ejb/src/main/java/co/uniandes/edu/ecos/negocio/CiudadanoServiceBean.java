@@ -111,10 +111,38 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
             }
         } catch (Exception exception) {
             respuestaService.setSePresentoError(true);
-            respuestaService.setErrorMensaje("La consulta de Emisor envió excepción general");
+            respuestaService.setErrorMensaje("La creación del ciudadano envió excepción general");
             respuestaService.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
 
         return respuestaService;
+    }
+    
+    /**
+     * Método que permite actualizar la información de un ciudadano.
+     *
+     * @param ciudadanoDto
+     * @return RespuestaService
+     */
+    @Override
+    public RespuestaService actaulizarCiudadano(CiudadanoDto ciudadanoDto)
+    {
+         RespuestaService respuestaService = new RespuestaService();
+          try {
+            if (ciudadanoDto == null) {
+                respuestaService.setSePresentoError(true);
+                respuestaService.setErrorMensaje("Error, se ha enviado un ciudadano nulo a actualizar.");
+            } else {
+                //em.getTransaction().begin();
+                em.merge(Mapper.copyCompleto(ciudadanoDto, Ciudadano.class, false));
+                //em.getTransaction().commit();
+                respuestaService.setRespuestaService("Se ha actualizado el ciudadano correctamente.");
+            }
+        } catch (Exception exception) {
+            respuestaService.setSePresentoError(true);
+            respuestaService.setErrorMensaje("La actualización del ciudadano se envió excepción general");
+            respuestaService.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+        }
+         return respuestaService;
     }
 }

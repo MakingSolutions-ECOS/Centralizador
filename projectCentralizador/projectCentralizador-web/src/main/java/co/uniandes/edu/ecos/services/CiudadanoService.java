@@ -60,11 +60,23 @@ public class CiudadanoService {
 
     /**
      * Método para crear un ciudadano en la carpeta ciudadana.
+     *
      * @param ciudadano a insertar.
-     * @return RespuestaService como resultado en la operación. 
+     * @return RespuestaService como resultado en la operación.
      */
     @WebMethod(operationName = "crearCiudadano")
     public RespuestaService crearCiudadano(@WebParam(name = "ciudadano") CiudadanoDto ciudadano) {
         return ciudadanoServiceBean.crearCiudadano(ciudadano);
-    }    
+    }
+
+    /**
+     * Método para actualizar un ciudadano en la carpeta ciudadana.
+     *
+     * @param ciudadano a actualizar.
+     * @return RespuestaService como resultado en la operación.
+     */
+    @WebMethod(operationName = "actualizarCiudadano")
+    public RespuestaService actualizarCiudadano(@WebParam(name = "ciudadano") CiudadanoDto ciudadano) {
+        return ciudadanoServiceBean.actaulizarCiudadano(ciudadano);
+    }
 }

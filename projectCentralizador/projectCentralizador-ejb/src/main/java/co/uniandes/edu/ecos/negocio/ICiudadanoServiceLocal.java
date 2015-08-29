@@ -39,4 +39,12 @@ public interface ICiudadanoServiceLocal {
      * @return RespuestaService
      */
     RespuestaService crearCiudadano(CiudadanoDto ciudadano);
+
+    /**
+     * Método que permite actualizar la información de un ciudadano.
+     *
+     * @param ciudadanoDto
+     * @return RespuestaService
+     */
+    RespuestaService actaulizarCiudadano(CiudadanoDto ciudadanoDto);
 }
