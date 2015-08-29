@@ -39,9 +39,11 @@ public class EmisorServiceBean implements IEmisorServiceLocal {
                 emisorRes.getEmisores().add(emisorDto);
             }
         } catch (IllegalArgumentException argumentException) {
+            emisorRes.setSePresentoError(true);
             emisorRes.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
             emisorRes.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
+            emisorRes.setSePresentoError(true);
             emisorRes.setErrorMensaje("La consulta de Emisor envió excepción general");
             emisorRes.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }

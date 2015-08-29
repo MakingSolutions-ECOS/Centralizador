@@ -1,32 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.uniandes.edu.ecos.dto;
 
 /**
- *
+ * Clase que representa una entidad emisora.
  * @author John Dany
  */
 public class EmisorDto {
 
-    private String codigoEntidadEmisora;
+    private Integer codigoEntidadEmisora;
     private String nombreEntidadEmisora;
     
 
-    public String getCodigoEntidadEmisora(){
+    /**
+     * Obtiene el codigo de la entidad emisora.
+     * @return 
+     */
+    public Integer getCodigoEntidadEmisora(){
         return codigoEntidadEmisora;
     }
 
-    public void setCodigoEntidadEmisora(String codigoEntidadEmisora) {
+    /**
+     * Establece el código de la entidad emisora.
+     * @param codigoEntidadEmisora 
+     */
+    public void setCodigoEntidadEmisora(Integer codigoEntidadEmisora) {
         this.codigoEntidadEmisora = codigoEntidadEmisora;
     }
     
+    /**
+     * Obtiene el nombre de la entidad emisora.
+     * @return String
+     */
     public String getNombreEntidadEmisora(){
         return nombreEntidadEmisora;
     }
 
+    /**
+     * Establece el nombre de la entidad emisora.
+     * @param nombreEntidadEmisora 
+     */
     public void setNombreEntidadEmisora(String nombreEntidadEmisora) {
         this.nombreEntidadEmisora = nombreEntidadEmisora;
     }
