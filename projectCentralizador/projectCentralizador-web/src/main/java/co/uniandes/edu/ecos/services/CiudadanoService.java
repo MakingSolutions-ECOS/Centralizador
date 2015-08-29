@@ -54,7 +54,7 @@ public class CiudadanoService {
      * @return RespuestaCiudadano
      */
     @WebMethod(operationName = "obtenerUsuarioPorIdentificacionYTipoDeIdentificacion")
-    public RespuestaCiudadano obtenerUsuarioPorIdentificacionYTipoDeIdentificacion(@WebParam(name = "identificacion") int identificacion, @WebParam(name = "tipoIdentifiacion") int tipoIdentifiacion) {
+    public RespuestaCiudadano obtenerUsuarioPorIdentificacionYTipoDeIdentificacion(@WebParam(name = "identificacion") String identificacion, @WebParam(name = "tipoIdentifiacion") int tipoIdentifiacion) {
         return ciudadanoServiceBean.obtenerCiudadanoPorIdentifacionYTipoDeIdentificacion(identificacion, tipoIdentifiacion);
     }
 

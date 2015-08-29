@@ -30,7 +30,7 @@ public interface ICiudadanoServiceLocal {
      * ciudadano.
      * @return objeto RespuestaCiudadano.
      */
-    RespuestaCiudadano obtenerCiudadanoPorIdentifacionYTipoDeIdentificacion(Integer identificacion, Integer tipoIdentificacion);
+    RespuestaCiudadano obtenerCiudadanoPorIdentifacionYTipoDeIdentificacion(String identificacion, Integer tipoIdentificacion);
 
     /**
      * Método que permite la creación de un ciudadano.

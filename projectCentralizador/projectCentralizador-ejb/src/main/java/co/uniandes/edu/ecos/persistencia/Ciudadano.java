@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -35,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ciudadano.findAll", query = "SELECT c FROM Ciudadano c"),
+    @NamedQuery(name = "Ciudadano.findByIdentificacionAndTipoIdenitificacion", query = "SELECT c FROM Ciudadano c WHERE c.identificacion = :identificacion AND c.codigoTipoIdentificacion = :codigoTipoIdentificacion"),
     @NamedQuery(name = "Ciudadano.findByCodigoCiudadano", query = "SELECT c FROM Ciudadano c WHERE c.codigoCiudadano = :codigoCiudadano"),
     @NamedQuery(name = "Ciudadano.findByHabilitadoCiudadano", query = "SELECT c FROM Ciudadano c WHERE c.habilitadoCiudadano = :habilitadoCiudadano"),
     @NamedQuery(name = "Ciudadano.findByPrimerNombre", query = "SELECT c FROM Ciudadano c WHERE c.primerNombre = :primerNombre"),
@@ -51,7 +54,7 @@ public class Ciudadano implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "CODIGO_CIUDADANO")
     private Integer codigoCiudadano;
     @Basic(optional = false)

@@ -2,6 +2,7 @@ package co.uniandes.edu.ecos.negocio;
 
 import co.uniandes.edu.ecos.dto.CiudadanoDto;
 import co.uniandes.edu.ecos.persistencia.Ciudadano;
+import co.uniandes.edu.ecos.persistencia.TipoIdentificacion;
 import co.uniandes.edu.ecos.plataforma.Mapper;
 import co.uniandes.edu.service.Response.RespuestaCiudadano;
 import co.uniandes.edu.service.Response.RespuestaService;
@@ -24,7 +25,7 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
     EntityManager em;
 
     /**
-     * Método para obtener el identificador único del usuario.
+     * Método para obtener el ciudadano por el identificador único.
      *
      * @param identificador del ciudadano a obtener.
      * @return RespuestaCiudadano
@@ -42,20 +43,51 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
             respuestaCiudadano.setErrorOriginal(noResultException.getMessage());
         } catch (IllegalArgumentException argumentException) {
             respuestaCiudadano.setSePresentoError(true);
-            respuestaCiudadano.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
+            respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano recibió un argumento inválido");
             respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaCiudadano.setSePresentoError(true);
-            respuestaCiudadano.setErrorMensaje("La consulta de Emisor envió excepción general");
+            respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano envió excepción general");
             respuestaCiudadano.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
 
         return respuestaCiudadano;
     }
 
+    /**
+     * Método para obtener un ciudadano por su identificación y su tipo de
+     * identifiación.
+     *
+     * @param identificacion del ciudadano.
+     * @param tipoIdentificacion correspondiente a la identificación
+     * parametrizada.
+     * @return RespuestaCiudadano
+     */
     @Override
-    public RespuestaCiudadano obtenerCiudadanoPorIdentifacionYTipoDeIdentificacion(Integer identificacion, Integer tipoIdentificacion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public RespuestaCiudadano obtenerCiudadanoPorIdentifacionYTipoDeIdentificacion(String identificacion, Integer tipoIdentificacion) {
+
+        TipoIdentificacion tipoId = new TipoIdentificacion();
+        tipoId.setCodigoTipoIdentificacion(tipoIdentificacion);
+        RespuestaCiudadano respuestaCiudadano = new RespuestaCiudadano();
+        try {
+            Ciudadano entity = em.createNamedQuery("Ciudadano.findByIdentificacionAndTipoIdenitificacion", Ciudadano.class).setParameter("identificacion", identificacion).setParameter("codigoTipoIdentificacion", tipoId).getSingleResult();
+            respuestaCiudadano.setCiudadanoDto(Mapper.copyCompleto(entity, CiudadanoDto.class, true));
+
+        } catch (NoResultException noResultException) {
+            respuestaCiudadano.setSePresentoError(false);
+            respuestaCiudadano.setRespuestaService("Ciudadano no encontrado.");
+            respuestaCiudadano.setErrorOriginal(noResultException.getMessage());
+        } catch (IllegalArgumentException argumentException) {
+            respuestaCiudadano.setSePresentoError(true);
+            respuestaCiudadano.setErrorMensaje("La consulta de Ciudadadano recibió un argumento inválido");
+            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+        } catch (Exception exception) {
+            respuestaCiudadano.setSePresentoError(true);
+            respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano envió excepción general");
+            respuestaCiudadano.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+        }
+
+        return respuestaCiudadano;
     }
 
     /**
