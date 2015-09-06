@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 /**
  * Clase para obtener y establecer información de ciudadanos.
@@ -44,11 +45,11 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
         } catch (IllegalArgumentException argumentException) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano recibió un argumento inválido");
-            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
         } catch (Exception exception) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano envió excepción general");
-            respuestaCiudadano.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+            respuestaCiudadano.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaCiudadano;
@@ -80,11 +81,11 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
         } catch (IllegalArgumentException argumentException) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadadano recibió un argumento inválido");
-            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
         } catch (Exception exception) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano envió excepción general");
-            respuestaCiudadano.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+            respuestaCiudadano.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaCiudadano;
@@ -109,15 +110,21 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
                 //em.getTransaction().commit();
                 respuestaService.setRespuestaService("Se ha creado el ciudadano correctamente.");
             }
-        } catch (Exception exception) {
+        } catch (PersistenceException exception) {
             respuestaService.setSePresentoError(true);
             respuestaService.setErrorMensaje("La creación del ciudadano envió excepción general");
-            respuestaService.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+            respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage(): "");
+        } 
+        catch (Exception exception) {
+            respuestaService.setSePresentoError(true);
+            respuestaService.setErrorMensaje("La creación del ciudadano envió excepción general");
+            respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage(): "");
+            
         }
 
         return respuestaService;
     }
-    
+
     /**
      * Método que permite actualizar la información de un ciudadano.
      *
@@ -125,24 +132,22 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
      * @return RespuestaService
      */
     @Override
-    public RespuestaService actaulizarCiudadano(CiudadanoDto ciudadanoDto)
-    {
-         RespuestaService respuestaService = new RespuestaService();
-          try {
+    public RespuestaService actaulizarCiudadano(CiudadanoDto ciudadanoDto) {
+        RespuestaService respuestaService = new RespuestaService();
+        try {
             if (ciudadanoDto == null) {
                 respuestaService.setSePresentoError(true);
                 respuestaService.setErrorMensaje("Error, se ha enviado un ciudadano nulo a actualizar.");
             } else {
-                //em.getTransaction().begin();
                 em.merge(Mapper.copyCompleto(ciudadanoDto, Ciudadano.class, false));
-                //em.getTransaction().commit();
                 respuestaService.setRespuestaService("Se ha actualizado el ciudadano correctamente.");
             }
         } catch (Exception exception) {
             respuestaService.setSePresentoError(true);
             respuestaService.setErrorMensaje("La actualización del ciudadano se envió excepción general");
-            respuestaService.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+            respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
         }
-         return respuestaService;
+
+        return respuestaService;
     }
 }
