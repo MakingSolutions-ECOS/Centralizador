@@ -33,6 +33,4 @@ public class RespuestaEmisor extends RespuestaService{
         this.Emisores = emisores;
     }
     
-    
-    
 }

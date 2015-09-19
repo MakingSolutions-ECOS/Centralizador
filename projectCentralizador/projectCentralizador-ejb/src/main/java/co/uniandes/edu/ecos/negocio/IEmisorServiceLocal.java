@@ -5,15 +5,24 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
+import co.uniandes.edu.ecos.dto.EmisorDto;
 import co.uniandes.edu.service.Response.*;
 import javax.ejb.Local;
 
 /**
  *
- * @author John Dany
+ * @author Camilo Marroquin
  */
 @Local
 public interface IEmisorServiceLocal {
+
+    RespuestaEmisor crearEmisor(EmisorDto emisor);
+
+    RespuestaEmisor obtenerEmisores();
+
+    RespuestaEmisor obtenerEmisor(String codigoEmisor);
+
+    RespuestaEmisor actualizarEmisor(EmisorDto emisor);
     
-    RespuestaEmisor obtenerEmisores ();
+    RespuestaService deleteEmisor(String codigoEmisor);
 }

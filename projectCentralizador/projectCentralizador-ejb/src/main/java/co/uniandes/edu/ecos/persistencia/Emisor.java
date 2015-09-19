@@ -124,10 +124,7 @@ public class Emisor implements Serializable {
             return false;
         }
         Emisor other = (Emisor) object;
-        if ((this.codigoEntidadEmisora == null && other.codigoEntidadEmisora != null) || (this.codigoEntidadEmisora != null && !this.codigoEntidadEmisora.equals(other.codigoEntidadEmisora))) {
-            return false;
-        }
-        return true;
+        return !((this.codigoEntidadEmisora == null && other.codigoEntidadEmisora != null) || (this.codigoEntidadEmisora != null && !this.codigoEntidadEmisora.equals(other.codigoEntidadEmisora)));
     }
 
     @Override
