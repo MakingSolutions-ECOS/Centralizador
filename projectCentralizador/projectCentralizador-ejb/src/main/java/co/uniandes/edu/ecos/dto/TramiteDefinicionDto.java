@@ -17,7 +17,6 @@ public class TramiteDefinicionDto {
     private String definicion;
     private short habilitado;
     private String descripcion;
-    private List<TramiteDto> tramiteList;
     private CategoriasTramiteDto codigoCategoria;
     private EmisorDto codigoEntidadEmisora;
     private List<DocumentoRequeridoTramiteDto> documentoRequeridoTramiteList;
@@ -52,14 +51,6 @@ public class TramiteDefinicionDto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public List<TramiteDto> getTramiteList() {
-        return tramiteList;
-    }
-
-    public void setTramiteList(List<TramiteDto> tramiteList) {
-        this.tramiteList = tramiteList;
     }
 
     public CategoriasTramiteDto getCodigoCategoria() {

@@ -61,8 +61,6 @@ public class TramiteDefinicion implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramiteDefinicion")
-    private List<Tramite> tramiteList;
     @JoinColumn(name = "CODIGO_CATEGORIA", referencedColumnName = "CODIGO_CATEGORIA")
     @ManyToOne(optional = false)
     private CategoriasTramite codigoCategoria;
@@ -116,15 +114,6 @@ public class TramiteDefinicion implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Tramite> getTramiteList() {
-        return tramiteList;
-    }
-
-    public void setTramiteList(List<Tramite> tramiteList) {
-        this.tramiteList = tramiteList;
     }
 
     public CategoriasTramite getCodigoCategoria() {
