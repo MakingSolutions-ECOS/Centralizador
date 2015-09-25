@@ -62,6 +62,30 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
         }
         return respuestaTramite;
     }
+    
+    @Override
+    public RespuestaTramite obtenerTramitesPorCiudadano(Integer identificador){
+        
+        RespuestaTramite respuestaTramite = new RespuestaTramite();
+        respuestaTramite.setTramiteDtos(new ArrayList<TramiteDto>());
+        try {
+            List<Tramite> tramites = em.createNamedQuery("Tramite.findByCodigoCiudadano", Tramite.class).setParameter("codigoCiudadano", identificador).getResultList();
+            for (Tramite tramite : tramites) {
+                TramiteDto tramiteDto = Mapper.copyCompleto(tramite, TramiteDto.class, false);
+                respuestaTramite.getTramiteDtos().add(tramiteDto);
+            }
+        } catch (IllegalArgumentException argumentException) {
+            respuestaTramite.setSePresentoError(true);
+            respuestaTramite.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
+            respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+        } catch (Exception exception) {
+            respuestaTramite.setSePresentoError(true);
+            respuestaTramite.setErrorMensaje("La consulta de Emisor envió excepción general");
+            respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+        }
+        return respuestaTramite;
+        
+    }
 
     /**
      * Metodo encargado de obtener todos los tramites

@@ -23,6 +23,8 @@ public interface ITramiteServiceLocal {
 
     public RespuestaTramite obtenerTramites();
 
+    public RespuestaTramite obtenerTramitesPorCiudadano(Integer identificador);
+    
     public RespuestaTramiteDefinicion obtenerTramitesDefinicion();
 
     public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorEntidad(Emisor e);

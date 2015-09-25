@@ -88,4 +88,11 @@ public class TramiteService {
         respuestaTramite = tramiteServiceBean.obtenerTramitesDefinicionPorCategoria(ct);
         return respuestaTramite;
     }
+    
+    @WebMethod(operationName = "obtenerTramitesPorCiudadano")
+    public RespuestaTramite obtenerTramitesPorCiudadano(Integer identificador){
+        RespuestaTramite respuestaTramite = new RespuestaTramite();
+        respuestaTramite = tramiteServiceBean.obtenerTramitesPorCiudadano(identificador);
+        return respuestaTramite;
+    }
 }
