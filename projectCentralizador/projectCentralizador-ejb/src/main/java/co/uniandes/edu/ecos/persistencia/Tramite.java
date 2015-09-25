@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Tramite.findAll", query = "SELECT t FROM Tramite t"),
     @NamedQuery(name = "Tramite.findByCodigoTramite", query = "SELECT t FROM Tramite t WHERE t.codigoTramite = :codigoTramite"),
-    @NamedQuery(name = "Tramite.findByCodigoCiudadano", query = "SELECT t FROM Tramite t WHERE t.codigoCiudadano = :codigoCiudadano")})
+    @NamedQuery(name = "Tramite.findByCodigoCiudadano", query = "SELECT t FROM Tramite t WHERE t.codigoCiudadano.codigoCiudadano = :codigoCiudadano")})
 public class Tramite implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
