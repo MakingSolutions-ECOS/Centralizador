@@ -71,7 +71,7 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
         try {
             List<Tramite> tramites = em.createNamedQuery("Tramite.findByCodigoCiudadano", Tramite.class).setParameter("codigoCiudadano", identificador).getResultList();
             for (Tramite tramite : tramites) {
-                TramiteDto tramiteDto = Mapper.copyCompleto(tramite, TramiteDto.class, false);
+                TramiteDto tramiteDto = Mapper.copyCompleto(tramite, TramiteDto.class, true);
                 respuestaTramite.getTramiteDtos().add(tramiteDto);
             }
         } catch (IllegalArgumentException argumentException) {
