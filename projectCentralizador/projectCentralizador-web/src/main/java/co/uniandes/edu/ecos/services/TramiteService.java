@@ -91,13 +91,23 @@ public class TramiteService {
         return respuestaTramite;
     }
     
+    /**
+     * Obtiene los tramites actuales de un ciudadano dado su código.
+     * @param codigoCiudadano
+     * @return respuestaTramite
+     */
     @WebMethod(operationName = "obtenerTramitesPorCiudadano")
-    public RespuestaTramite obtenerTramitesPorCiudadano(@WebParam(name = "codigoCiudadano") Integer identificador){
+    public RespuestaTramite obtenerTramitesPorCiudadano(@WebParam(name = "codigoCiudadano") Integer codigoCiudadano){
         RespuestaTramite respuestaTramite = new RespuestaTramite();
-        respuestaTramite = tramiteServiceBean.obtenerTramitesPorCiudadano(identificador);
+        respuestaTramite = tramiteServiceBean.obtenerTramitesPorCiudadano(codigoCiudadano);
         return respuestaTramite;
     }
     
+    /**
+     * Obtiene los tramites actuales dado su estado actual.
+     * @param codigoTramiteEstado
+     * @return respuestaTramite
+     */
     @WebMethod(operationName = "obtenerTramitesPorEstado")
     public RespuestaTramite obtenerTramitesPorEstado(@WebParam(name = "codigoTramiteEstado") Integer codigoTramiteEstado){
         RespuestaTramite respuestaTramite = new RespuestaTramite();
@@ -106,4 +116,17 @@ public class TramiteService {
         respuestaTramite = tramiteServiceBean.obtenerTramitesPorEstado(tramiteEstado);
         return respuestaTramite;
     }    
+    
+    /**
+     * Obtiene los tramites actuales dado una entidad especifica.
+     * @param codigoEntidadEmisora
+     * @return respuestaTramite
+     */
+    @WebMethod(operationName = "obtenerTramitePorEntidad")
+    public RespuestaTramite obtenerTramitePorEntidad(@WebParam(name = "codigoEntidadEmisora") Integer codigoEntidadEmisora){
+        RespuestaTramite respuestaTramite = new RespuestaTramite();
+        Emisor emisor = new Emisor(codigoEntidadEmisora);
+        respuestaTramite = tramiteServiceBean.obtenerTramitePorEntidad(emisor);
+        return respuestaTramite;
+    }        
 }

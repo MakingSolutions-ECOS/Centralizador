@@ -28,6 +28,8 @@ public interface ITramiteServiceLocal {
     
     public RespuestaTramite obtenerTramitesPorEstado(TramiteEstado tramiteEstado);
     
+    public RespuestaTramite obtenerTramitePorEntidad(Emisor emisor);
+    
     public RespuestaTramiteDefinicion obtenerTramitesDefinicion();
 
     public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorEntidad(Emisor e);
