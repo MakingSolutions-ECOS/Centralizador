@@ -4,12 +4,14 @@ import co.uniandes.edu.ecos.dto.TramiteDto;
 import co.uniandes.edu.ecos.negocio.ITramiteServiceLocal;
 import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
+import co.uniandes.edu.ecos.persistencia.TramiteEstado;
 import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;
 import co.uniandes.edu.service.Response.RespuestaTramiteDefinicion;
 import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
 /**
  *
@@ -90,9 +92,18 @@ public class TramiteService {
     }
     
     @WebMethod(operationName = "obtenerTramitesPorCiudadano")
-    public RespuestaTramite obtenerTramitesPorCiudadano(Integer identificador){
+    public RespuestaTramite obtenerTramitesPorCiudadano(@WebParam(name = "codigoCiudadano") Integer identificador){
         RespuestaTramite respuestaTramite = new RespuestaTramite();
         respuestaTramite = tramiteServiceBean.obtenerTramitesPorCiudadano(identificador);
         return respuestaTramite;
     }
+    
+    @WebMethod(operationName = "obtenerTramitesPorEstado")
+    public RespuestaTramite obtenerTramitesPorEstado(@WebParam(name = "codigoTramiteEstado") Integer codigoTramiteEstado){
+        RespuestaTramite respuestaTramite = new RespuestaTramite();
+        TramiteEstado tramiteEstado = new TramiteEstado();
+        tramiteEstado.setCodigoTramiteEstado(codigoTramiteEstado);
+        respuestaTramite = tramiteServiceBean.obtenerTramitesPorEstado(tramiteEstado);
+        return respuestaTramite;
+    }    
 }
