@@ -36,7 +36,7 @@ public class EmisorServiceBean implements IEmisorServiceLocal {
         try {
             List<Emisor> emisores = em.createNamedQuery("Emisor.findAll", Emisor.class).getResultList();
             for (Emisor emisor : emisores) {
-                EmisorDto emisorDto = Mapper.copyCompleto(emisor, EmisorDto.class, false);
+                EmisorDto emisorDto = Mapper.copyCompleto(emisor, EmisorDto.class, true);
                 emisorRes.getEmisores().add(emisorDto);
             }
         } catch (IllegalArgumentException argumentException) {

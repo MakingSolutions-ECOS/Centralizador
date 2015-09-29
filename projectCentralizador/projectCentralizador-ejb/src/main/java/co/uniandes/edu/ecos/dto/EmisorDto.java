@@ -1,5 +1,7 @@
 package co.uniandes.edu.ecos.dto;
 
+import java.util.List;
+
 /**
  * Clase que representa una entidad emisora.
  * @author John Dany
@@ -8,6 +10,23 @@ public class EmisorDto {
 
     private Integer codigoEntidadEmisora;
     private String nombreEntidadEmisora;
+    private List<TramiteDefinicionDto> tramiteDefinicionList;
+
+    /**
+     * Obtiene la lista de tramites
+     * @return 
+     */
+    public List<TramiteDefinicionDto> getTramiteDefinicionList() {
+        return tramiteDefinicionList;
+    }
+
+    /**
+     * Establece la lista de tramites
+     * @param tramiteDefinicionList 
+     */
+    public void setTramiteDefinicionList(List<TramiteDefinicionDto> tramiteDefinicionList) {
+        this.tramiteDefinicionList = tramiteDefinicionList;
+    }
     
 
     /**
