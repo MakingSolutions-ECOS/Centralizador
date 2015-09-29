@@ -5,9 +5,11 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
+import co.uniandes.edu.ecos.dto.EmisorDto;
 import co.uniandes.edu.ecos.dto.TramiteDto;
 import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
+import co.uniandes.edu.ecos.persistencia.TramiteDefinicion;
 import co.uniandes.edu.ecos.persistencia.TramiteEstado;
 import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;

@@ -5,6 +5,7 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
+import co.uniandes.edu.ecos.dto.EmisorDto;
 import co.uniandes.edu.ecos.utilidad.Mapper;
 import co.uniandes.edu.ecos.dto.TramiteDefinicionDto;
 import co.uniandes.edu.ecos.dto.TramiteDto;
@@ -131,8 +132,9 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
         
         RespuestaTramite respuestaTramite = new RespuestaTramite();
         respuestaTramite.setTramiteDtos(new ArrayList<TramiteDto>());
+        
         try {
-            List<Tramite> tramites = em.createNamedQuery("Tramite.findByCodigoEstado", Tramite.class).setParameter("codigoEntidadEmisora", emisor).getResultList();
+            List<Tramite> tramites = em.createNamedQuery("Tramite.findByCodigoEstado", Tramite.class).setParameter("codigoEntidadEmisora", emisor.getCodigoEntidadEmisora()).getResultList();
             for (Tramite tramite : tramites) {
                 TramiteDto tramiteDto = Mapper.copyCompleto(tramite, TramiteDto.class, true);
                 respuestaTramite.getTramiteDtos().add(tramiteDto);
