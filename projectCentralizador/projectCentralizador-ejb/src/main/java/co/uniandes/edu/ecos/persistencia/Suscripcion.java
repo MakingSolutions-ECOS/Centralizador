@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author John Dany
+ * @author Usuario
  */
 @Entity
 @Table(name = "SUSCRIPCION")
@@ -33,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Suscripcion.findAll", query = "SELECT s FROM Suscripcion s"),
     @NamedQuery(name = "Suscripcion.findByCodigoSubscripcion", query = "SELECT s FROM Suscripcion s WHERE s.codigoSubscripcion = :codigoSubscripcion"),
     @NamedQuery(name = "Suscripcion.findByDetalleSubscripcion", query = "SELECT s FROM Suscripcion s WHERE s.detalleSubscripcion = :detalleSubscripcion"),
-    @NamedQuery(name = "Suscripcion.findByFecha", query = "SELECT s FROM Suscripcion s WHERE s.fecha = :fecha")})
+    @NamedQuery(name = "Suscripcion.findByFecha", query = "SELECT s FROM Suscripcion s WHERE s.fecha = :fecha"),
+    @NamedQuery(name = "Suscripcion.findByVigente", query = "SELECT s FROM Suscripcion s WHERE s.vigente = :vigente")})
 public class Suscripcion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,9 +50,10 @@ public class Suscripcion implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @JoinColumn(name = "CODIGO_OPERADOR", referencedColumnName = "CODIGO_OPERADOR")
-    @ManyToOne
-    private Operador codigoOperador;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "VIGENTE")
+    private boolean vigente;
 
     public Suscripcion() {
     }
@@ -62,10 +62,11 @@ public class Suscripcion implements Serializable {
         this.codigoSubscripcion = codigoSubscripcion;
     }
 
-    public Suscripcion(Integer codigoSubscripcion, String detalleSubscripcion, Date fecha) {
+    public Suscripcion(Integer codigoSubscripcion, String detalleSubscripcion, Date fecha, boolean vigente) {
         this.codigoSubscripcion = codigoSubscripcion;
         this.detalleSubscripcion = detalleSubscripcion;
         this.fecha = fecha;
+        this.vigente = vigente;
     }
 
     public Integer getCodigoSubscripcion() {
@@ -92,12 +93,12 @@ public class Suscripcion implements Serializable {
         this.fecha = fecha;
     }
 
-    public Operador getCodigoOperador() {
-        return codigoOperador;
+    public boolean getVigente() {
+        return vigente;
     }
 
-    public void setCodigoOperador(Operador codigoOperador) {
-        this.codigoOperador = codigoOperador;
+    public void setVigente(boolean vigente) {
+        this.vigente = vigente;
     }
 
     @Override
