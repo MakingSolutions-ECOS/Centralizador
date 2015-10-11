@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TramiteDefinicion.findByHabilitado", query = "SELECT t FROM TramiteDefinicion t WHERE t.habilitado = :habilitado"),
     @NamedQuery(name = "TramiteDefinicion.findByDescripcion", query = "SELECT t FROM TramiteDefinicion t WHERE t.descripcion = :descripcion")})
 public class TramiteDefinicion implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramiteDefinicion")
+    private List<Tramite> tramiteList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -164,6 +166,15 @@ public class TramiteDefinicion implements Serializable {
     @Override
     public String toString() {
         return "co.uniandes.edu.ecos.persistencia.TramiteDefinicion[ codigoTramiteDefinicion=" + codigoTramiteDefinicion + " ]";
+    }
+
+    @XmlTransient
+    public List<Tramite> getTramiteList() {
+        return tramiteList;
+    }
+
+    public void setTramiteList(List<Tramite> tramiteList) {
+        this.tramiteList = tramiteList;
     }
     
 }

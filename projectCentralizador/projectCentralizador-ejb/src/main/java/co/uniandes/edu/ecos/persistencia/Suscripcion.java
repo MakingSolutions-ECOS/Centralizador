@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -34,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Suscripcion.findByFecha", query = "SELECT s FROM Suscripcion s WHERE s.fecha = :fecha"),
     @NamedQuery(name = "Suscripcion.findByVigente", query = "SELECT s FROM Suscripcion s WHERE s.vigente = :vigente")})
 public class Suscripcion implements Serializable {
+    @JoinColumn(name = "CODIGO_OPERADOR", referencedColumnName = "CODIGO_OPERADOR")
+    @ManyToOne(optional = false)
+    private Operador codigoOperador;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -124,6 +129,14 @@ public class Suscripcion implements Serializable {
     @Override
     public String toString() {
         return "co.uniandes.edu.ecos.persistencia.Suscripcion[ codigoSubscripcion=" + codigoSubscripcion + " ]";
+    }
+
+    public Operador getCodigoOperador() {
+        return codigoOperador;
+    }
+
+    public void setCodigoOperador(Operador codigoOperador) {
+        this.codigoOperador = codigoOperador;
     }
     
 }

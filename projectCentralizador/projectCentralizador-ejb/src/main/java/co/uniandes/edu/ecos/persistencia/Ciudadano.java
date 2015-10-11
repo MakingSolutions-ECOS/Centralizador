@@ -12,8 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,7 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ciudadano.findAll", query = "SELECT c FROM Ciudadano c"),
-    @NamedQuery(name = "Ciudadano.findByIdentificacionAndTipoIdenitificacion", query = "SELECT c FROM Ciudadano c WHERE c.identificacion = :identificacion AND c.codigoTipoIdentificacion = :codigoTipoIdentificacion"),
     @NamedQuery(name = "Ciudadano.findByCodigoCiudadano", query = "SELECT c FROM Ciudadano c WHERE c.codigoCiudadano = :codigoCiudadano"),
     @NamedQuery(name = "Ciudadano.findByHabilitadoCiudadano", query = "SELECT c FROM Ciudadano c WHERE c.habilitadoCiudadano = :habilitadoCiudadano"),
     @NamedQuery(name = "Ciudadano.findByPrimerNombre", query = "SELECT c FROM Ciudadano c WHERE c.primerNombre = :primerNombre"),
@@ -51,10 +48,27 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ciudadano.findByDireccion", query = "SELECT c FROM Ciudadano c WHERE c.direccion = :direccion"),
     @NamedQuery(name = "Ciudadano.findByCorreo", query = "SELECT c FROM Ciudadano c WHERE c.correo = :correo")})
 public class Ciudadano implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCiudadano")
+    private List<Tramite> tramiteList;
+    @JoinColumn(name = "CODIGO_MUNICIPIO", referencedColumnName = "CODIGO_MUNICIPIO")
+    @ManyToOne(optional = false)
+    private Municipio codigoMunicipio;
+    @JoinColumn(name = "CODIGO_NACIONALIDAD", referencedColumnName = "CODIGO_NACIONALIDAD")
+    @ManyToOne(optional = false)
+    private Nacionalidad codigoNacionalidad;
+    @JoinColumn(name = "CODIGO_OPERADOR", referencedColumnName = "CODIGO_OPERADOR")
+    @ManyToOne
+    private Operador codigoOperador;
+    @JoinColumn(name = "CODIGO_TIPO_IDENTIFICACION", referencedColumnName = "CODIGO_TIPO_IDENTIFICACION")
+    @ManyToOne(optional = false)
+    private TipoIdentificacion codigoTipoIdentificacion;
+    @JoinColumn(name = "CODIGO_TIPO_PERSONA", referencedColumnName = "CODIGO_TIPO_PERSONA")
+    @ManyToOne(optional = false)
+    private TipoPersona codigoTipoPersona;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @NotNull
     @Column(name = "CODIGO_CIUDADANO")
     private Integer codigoCiudadano;
     @Basic(optional = false)
@@ -108,22 +122,7 @@ public class Ciudadano implements Serializable {
     @Column(name = "CORREO")
     private String correo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCiudadano")
-    private List<Tramite> tramiteList;
-    @JoinColumn(name = "CODIGO_MUNICIPIO", referencedColumnName = "CODIGO_MUNICIPIO")
-    @ManyToOne(optional = false)
-    private Municipio codigoMunicipio;
-    @JoinColumn(name = "CODIGO_NACIONALIDAD", referencedColumnName = "CODIGO_NACIONALIDAD")
-    @ManyToOne(optional = false)
-    private Nacionalidad codigoNacionalidad;
-    @JoinColumn(name = "CODIGO_OPERADOR", referencedColumnName = "CODIGO_OPERADOR")
-    @ManyToOne
-    private Operador codigoOperador;
-    @JoinColumn(name = "CODIGO_TIPO_IDENTIFICACION", referencedColumnName = "CODIGO_TIPO_IDENTIFICACION")
-    @ManyToOne(optional = false)
-    private TipoIdentificacion codigoTipoIdentificacion;
-    @JoinColumn(name = "CODIGO_TIPO_PERSONA", referencedColumnName = "CODIGO_TIPO_PERSONA")
-    @ManyToOne(optional = false)
-    private TipoPersona codigoTipoPersona;
+    private List<Notificacion> notificacionList;
 
     public Ciudadano() {
     }
@@ -242,12 +241,37 @@ public class Ciudadano implements Serializable {
     }
 
     @XmlTransient
-    public List<Tramite> getTramiteList() {
-        return tramiteList;
+    public List<Notificacion> getNotificacionList() {
+        return notificacionList;
     }
 
-    public void setTramiteList(List<Tramite> tramiteList) {
-        this.tramiteList = tramiteList;
+    public void setNotificacionList(List<Notificacion> notificacionList) {
+        this.notificacionList = notificacionList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (codigoCiudadano != null ? codigoCiudadano.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Ciudadano)) {
+            return false;
+        }
+        Ciudadano other = (Ciudadano) object;
+        if ((this.codigoCiudadano == null && other.codigoCiudadano != null) || (this.codigoCiudadano != null && !this.codigoCiudadano.equals(other.codigoCiudadano))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "co.uniandes.edu.ecos.persistencia.Ciudadano[ codigoCiudadano=" + codigoCiudadano + " ]";
     }
 
     public Municipio getCodigoMunicipio() {
@@ -290,29 +314,13 @@ public class Ciudadano implements Serializable {
         this.codigoTipoPersona = codigoTipoPersona;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (codigoCiudadano != null ? codigoCiudadano.hashCode() : 0);
-        return hash;
+    @XmlTransient
+    public List<Tramite> getTramiteList() {
+        return tramiteList;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ciudadano)) {
-            return false;
-        }
-        Ciudadano other = (Ciudadano) object;
-        if ((this.codigoCiudadano == null && other.codigoCiudadano != null) || (this.codigoCiudadano != null && !this.codigoCiudadano.equals(other.codigoCiudadano))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "co.uniandes.edu.ecos.persistencia.Ciudadano[ codigoCiudadano=" + codigoCiudadano + " ]";
+    public void setTramiteList(List<Tramite> tramiteList) {
+        this.tramiteList = tramiteList;
     }
     
 }
