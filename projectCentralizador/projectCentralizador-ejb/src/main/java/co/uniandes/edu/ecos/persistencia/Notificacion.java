@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n"),
     @NamedQuery(name = "Notificacion.findByCodigoNotificacion", query = "SELECT n FROM Notificacion n WHERE n.codigoNotificacion = :codigoNotificacion"),
     @NamedQuery(name = "Notificacion.findByRemitente", query = "SELECT n FROM Notificacion n WHERE n.remitente = :remitente"),
+    @NamedQuery(name = "Notificacion.findByCiudadano", query = "SELECT n FROM Notificacion n WHERE n.codigoCiudadano.codigoCiudadano = :codigoCiudadano"),
+    @NamedQuery(name = "Notificacion.findByCiudadanoEstado", query = "SELECT n FROM Notificacion n WHERE n.codigoCiudadano.codigoCiudadano = :codigoCiudadano AND n.codigoNotificacionEstado.codigoEstado = :codigoEstado"),
     @NamedQuery(name = "Notificacion.findByMensaje", query = "SELECT n FROM Notificacion n WHERE n.mensaje = :mensaje")})
 public class Notificacion implements Serializable {
     @Size(max = 300)

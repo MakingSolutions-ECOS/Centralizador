@@ -41,4 +41,52 @@ public class NotificacionDto {
      */
     private NotificacionEstadoDto codigoNotificacionEstado;
 
+    public String getUrlAdjunto() {
+        return urlAdjunto;
+    }
+
+    public void setUrlAdjunto(String urlAdjunto) {
+        this.urlAdjunto = urlAdjunto;
+    }
+
+    public Integer getCodigoNotificacion() {
+        return codigoNotificacion;
+    }
+
+    public void setCodigoNotificacion(Integer codigoNotificacion) {
+        this.codigoNotificacion = codigoNotificacion;
+    }
+
+    public String getRemitente() {
+        return remitente;
+    }
+
+    public void setRemitente(String remitente) {
+        this.remitente = remitente;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public CiudadanoDto getCodigoCiudadano() {
+        return codigoCiudadano;
+    }
+
+    public void setCodigoCiudadano(CiudadanoDto codigoCiudadano) {
+        this.codigoCiudadano = codigoCiudadano;
+    }
+
+    public NotificacionEstadoDto getCodigoNotificacionEstado() {
+        return codigoNotificacionEstado;
+    }
+
+    public void setCodigoNotificacionEstado(NotificacionEstadoDto codigoNotificacionEstado) {
+        this.codigoNotificacionEstado = codigoNotificacionEstado;
+    }
+
 }
