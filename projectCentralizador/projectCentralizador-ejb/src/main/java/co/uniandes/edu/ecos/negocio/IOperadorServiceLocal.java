@@ -8,7 +8,7 @@ import javax.ejb.Local;
  * @author John Dany
  */
 @Local
-public interface IOperadorServiceBeanLocal {
+public interface IOperadorServiceLocal {
 
     /**
      *Definición del método para obtener un operador por código único.

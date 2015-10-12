@@ -45,11 +45,11 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
         } catch (IllegalArgumentException argumentException) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano recibió un argumento inválido");
-            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
+            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : "" + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
         } catch (Exception exception) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano envió excepción general");
-            respuestaCiudadano.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            respuestaCiudadano.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaCiudadano;
@@ -77,15 +77,15 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
         } catch (NoResultException noResultException) {
             respuestaCiudadano.setSePresentoError(false);
             respuestaCiudadano.setRespuestaService("Ciudadano no encontrado.");
-            respuestaCiudadano.setErrorOriginal(noResultException.getMessage());
+            respuestaCiudadano.setErrorOriginal(noResultException.getMessage() != null ? noResultException.getMessage() : "");
         } catch (IllegalArgumentException argumentException) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadadano recibió un argumento inválido");
-            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
+            respuestaCiudadano.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : "" + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
         } catch (Exception exception) {
             respuestaCiudadano.setSePresentoError(true);
             respuestaCiudadano.setErrorMensaje("La consulta de Ciudadano envió excepción general");
-            respuestaCiudadano.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
+            respuestaCiudadano.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaCiudadano;
@@ -113,13 +113,12 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
         } catch (PersistenceException exception) {
             respuestaService.setSePresentoError(true);
             respuestaService.setErrorMensaje("La creación del ciudadano envió excepción general");
-            respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage(): "");
-        } 
-        catch (Exception exception) {
+            respuestaService.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
+        } catch (Exception exception) {
             respuestaService.setSePresentoError(true);
             respuestaService.setErrorMensaje("La creación del ciudadano envió excepción general");
-            respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage(): "");
-            
+            respuestaService.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
+
         }
 
         return respuestaService;
@@ -145,7 +144,7 @@ public class CiudadanoServiceBean implements ICiudadanoServiceLocal {
         } catch (Exception exception) {
             respuestaService.setSePresentoError(true);
             respuestaService.setErrorMensaje("La actualización del ciudadano se envió excepción general");
-            respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
+            respuestaService.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " " + exception.getCause() != null ? "Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaService;

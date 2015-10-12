@@ -17,15 +17,7 @@ public class SuscripcionDto {
     private String detalleSubscripcion;
     private Date fecha;
     private OperadorDto codigoOperador;
-    private Boolean vigente;
-
-    public Boolean getVigente() {
-        return vigente;
-    }
-
-    public void setVigente(Boolean vigente) {
-        this.vigente = vigente;
-    }
+    private boolean vigente;
 
     public Integer getCodigoSubscripcion() {
         return codigoSubscripcion;
@@ -57,6 +49,14 @@ public class SuscripcionDto {
 
     public void setCodigoOperador(OperadorDto codigoOperador) {
         this.codigoOperador = codigoOperador;
+    }
+
+    public boolean getVigente() {
+        return vigente;
+    }
+
+    public void setVigente(boolean vigente) {
+        this.vigente = vigente;
     }
 
 }

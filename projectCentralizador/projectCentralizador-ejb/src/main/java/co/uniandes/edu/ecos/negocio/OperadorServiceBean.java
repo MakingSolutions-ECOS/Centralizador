@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @PermitAll
 @Stateful
-public class OperadorServiceBean implements IOperadorServiceBeanLocal {
+public class OperadorServiceBean implements IOperadorServiceLocal {
 
     /**
      * Administrador de entidades.
@@ -42,15 +42,15 @@ public class OperadorServiceBean implements IOperadorServiceBeanLocal {
         } catch (NoResultException noResultException) {
             respuestaOperador.setSePresentoError(false);
             respuestaOperador.setRespuestaService("Operador no encontrado.");
-            respuestaOperador.setErrorOriginal(noResultException.getMessage());
+            respuestaOperador.setErrorOriginal(noResultException.getMessage() != null ? noResultException.getMessage() : "");
         } catch (IllegalArgumentException argumentException) {
             respuestaOperador.setSePresentoError(true);
             respuestaOperador.setErrorMensaje("La consulta de Operador recibió un argumento inválido");
-            respuestaOperador.setErrorOriginal(argumentException.getMessage() + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
+            respuestaOperador.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : "" + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
         } catch (Exception exception) {
             respuestaOperador.setSePresentoError(true);
             respuestaOperador.setErrorMensaje("La consulta de Operador envió excepción general");
-            respuestaOperador.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            respuestaOperador.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaOperador;
@@ -72,15 +72,15 @@ public class OperadorServiceBean implements IOperadorServiceBeanLocal {
         } catch (NoResultException noResultException) {
             respuestaOperador.setSePresentoError(false);
             respuestaOperador.setRespuestaService("Operador no encontrado.");
-            respuestaOperador.setErrorOriginal(noResultException.getMessage());
+            respuestaOperador.setErrorOriginal(noResultException.getMessage() != null ? noResultException.getMessage() : "");
         } catch (IllegalArgumentException argumentException) {
             respuestaOperador.setSePresentoError(true);
             respuestaOperador.setErrorMensaje("La consulta de Operador recibió un argumento inválido");
-            respuestaOperador.setErrorOriginal(argumentException.getMessage() + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
+            respuestaOperador.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : "" + " " + argumentException.getCause() != null ? "Causa: " + argumentException.getCause().getMessage() : "");
         } catch (Exception exception) {
             respuestaOperador.setSePresentoError(true);
             respuestaOperador.setErrorMensaje("La consulta de Operador envió excepción general");
-            respuestaOperador.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            respuestaOperador.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaOperador;
@@ -88,7 +88,6 @@ public class OperadorServiceBean implements IOperadorServiceBeanLocal {
 
     @Override
     public RespuestaOperador operadorConSuscripcionPorIdentifiacion(String identificacion) {
-
         RespuestaOperador respuestaOperador = new RespuestaOperador();
         try {
             respuestaOperador = this.obtenerOperadorPorIdenficacion(identificacion);
@@ -96,8 +95,9 @@ public class OperadorServiceBean implements IOperadorServiceBeanLocal {
 
         } catch (Exception exception) {
             respuestaOperador.setSePresentoError(true);
+            respuestaOperador.setOperador(null);
             respuestaOperador.setErrorMensaje("La consulta de Operador envió excepción general");
-            respuestaOperador.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            respuestaOperador.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaOperador;
@@ -113,21 +113,23 @@ public class OperadorServiceBean implements IOperadorServiceBeanLocal {
         } catch (Exception exception) {
             respuestaOperador.setSePresentoError(true);
             respuestaOperador.setErrorMensaje("La consulta de Operador envió excepción general");
-            respuestaOperador.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            respuestaOperador.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
         }
         return respuestaOperador;
     }
 
     /**
-     * Metodo que validad una respuesta y verfica si el operador tiene la suscripcion vigente.
+     * Metodo que validad una respuesta y verfica si el operador tiene la
+     * suscripcion vigente.
+     *
      * @param respuesta a validar
      * @return objeto RespuestaOperador
      */
     private RespuestaOperador validarRespuestaOperadorSuscrito(RespuestaOperador respuesta) {
-        RespuestaOperador respuestaOperador = respuesta;
+        RespuestaOperador respuestaOperador = null;
         try {
-            OperadorDto operador = respuestaOperador.getOperador();
-            if (respuestaOperador != null && operador != null) {
+            OperadorDto operador = respuesta.getOperador();
+            if (respuesta != null && operador != null) {
                 List<SuscripcionDto> suscripciones = operador.getSuscripcionList();
                 if (suscripciones != null && suscripciones.size() > 0) {
                     boolean suscrito = false;
@@ -140,25 +142,28 @@ public class OperadorServiceBean implements IOperadorServiceBeanLocal {
                     }
 
                     if (suscrito) {
-                        return respuestaOperador;
+                        return respuesta;
                     } else {
-                        respuestaOperador.setErrorMensaje("El operador no se encuentra con una suscripción vigente.");
+                        respuestaOperador = new RespuestaOperador();
+                        respuestaOperador.setRespuestaService("El operador no se encuentra con una suscripción vigente.");
                         respuestaOperador.setErrorOriginal("");
-                        respuestaOperador.setSePresentoError(true);
+                        respuestaOperador.setSePresentoError(false);
                     }
                 } else {
-                    respuestaOperador.setErrorMensaje("El operador no se encuentra con una suscripción vigente.");
+                    respuestaOperador = new RespuestaOperador();
+                    respuestaOperador.setRespuestaService("El operador no se encuentra con una suscripción vigente.");
                     respuestaOperador.setErrorOriginal("");
-                    respuestaOperador.setSePresentoError(true);
+                    respuestaOperador.setSePresentoError(false);
                 }
             } else {
 
             }
 
         } catch (Exception exception) {
+            respuestaOperador = new RespuestaOperador();
             respuestaOperador.setSePresentoError(true);
             respuestaOperador.setErrorMensaje("La consulta de Operador envió excepción general");
-            respuestaOperador.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            respuestaOperador.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : "" + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
         }
 
         return respuestaOperador;
