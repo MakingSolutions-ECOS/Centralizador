@@ -6,6 +6,7 @@ import co.uniandes.edu.ecos.negocio.IOperadorServiceLocal;
 import co.uniandes.edu.service.Response.RespuestaCiudadano;
 import co.uniandes.edu.service.Response.RespuestaOperador;
 import co.uniandes.edu.service.Response.RespuestaService;
+import co.uniandes.edu.service.Response.RespuestaTipoIdentificacion;
 import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -134,5 +135,18 @@ public class CiudadanoService {
             respuestaService.setSePresentoError(operador.getSePresentoError());
             return respuestaService;
         }
+    }
+    
+    /**
+     * Servicio web que retorna los estados de una notificación.
+     *
+     * @return objeto de tipo RespuestaTipoIdentificacion, el cual tiene una
+     * colección de objetos TipoIdentificacionDto.
+     */
+    @WebMethod(operationName = "obtenerTiposIdentificacion")
+    public RespuestaTipoIdentificacion obtenerTiposIdentificacion() {
+        RespuestaTipoIdentificacion respuestaTipoIdentificacion = null;
+        respuestaTipoIdentificacion = ciudadanoServiceBean.obtenerTipoIdentificaciones();
+        return respuestaTipoIdentificacion;
     }
 }

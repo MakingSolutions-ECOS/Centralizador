@@ -3,6 +3,7 @@ package co.uniandes.edu.ecos.negocio;
 import co.uniandes.edu.ecos.dto.CiudadanoDto;
 import co.uniandes.edu.service.Response.RespuestaCiudadano;
 import co.uniandes.edu.service.Response.RespuestaService;
+import co.uniandes.edu.service.Response.RespuestaTipoIdentificacion;
 import javax.ejb.Local;
 
 /**
@@ -47,4 +48,11 @@ public interface ICiudadanoServiceLocal {
      * @return RespuestaService
      */
     RespuestaService actaulizarCiudadano(CiudadanoDto ciudadanoDto);
+
+    /**
+     * Métod que permite obtener todos los tipos de identificación.
+     *
+     * @return objeto de tipo RespuestaTipoIdentificacion.
+     */
+    RespuestaTipoIdentificacion obtenerTipoIdentificaciones();
 }

@@ -1,6 +1,8 @@
 package co.uniandes.edu.service.Response;
 
+import co.uniandes.edu.ecos.dto.NotificacionDto;
 import co.uniandes.edu.ecos.dto.NotificacionEstadoDto;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +16,22 @@ public class RespuestaNotificacionEstado extends RespuestaService {
      * Colección de estados de notificación.
      */
     private List<NotificacionEstadoDto> notificacionEstadoDtos;
+
+    /**
+     * Inicializa una nueva instancia.
+     */
+    public RespuestaNotificacionEstado() {
+        this.notificacionEstadoDtos = new ArrayList<>();
+    }
+
+    /**
+     * Inicializacion de una nueva instancia con parémetros
+     *
+     * @param notificacionEstadoDto
+     */
+    public RespuestaNotificacionEstado(List<NotificacionEstadoDto> notificacionEstadoDto) {
+        this.notificacionEstadoDtos = notificacionEstadoDto;
+    }
 
     /**
      * Obtiene los estados de notificación.
