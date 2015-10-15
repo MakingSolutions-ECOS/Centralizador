@@ -5,7 +5,6 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
-import co.uniandes.edu.ecos.dto.EmisorDto;
 import co.uniandes.edu.ecos.utilidad.Mapper;
 import co.uniandes.edu.ecos.dto.TramiteDefinicionDto;
 import co.uniandes.edu.ecos.dto.TramiteDto;
@@ -21,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -264,6 +261,27 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
         return respuestaTramite;
     }
 
+    public RespuestaTramite consultarTramitePendiente(Integer codigoEntidadEmisora){
+    RespuestaTramite respuestaTramite = new RespuestaTramite();
+        respuestaTramite.setTramiteDtos(new ArrayList<TramiteDto>());
+        try {
+            List<Tramite> tramites = em.createNamedQuery("Tramite.findByEstadoPendienteTramite", Tramite.class).setParameter("codigoEntidadEmisora", codigoEntidadEmisora).getResultList();
+            for (Tramite tramite : tramites) {
+                TramiteDto tramiteDto = Mapper.copyCompleto(tramite, TramiteDto.class, true);
+                respuestaTramite.getTramiteDtos().add(tramiteDto);
+            }
+        } catch (IllegalArgumentException argumentException) {
+            respuestaTramite.setSePresentoError(true);
+            respuestaTramite.setErrorMensaje("La consulta de tramite por estado recibió un argumento inválido");
+            respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+        } catch (Exception exception) {
+            respuestaTramite.setSePresentoError(true);
+            respuestaTramite.setErrorMensaje("La consulta de tramite por estado envió excepción general");
+            respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+        }
+        return respuestaTramite;
+        
+    }
 
 
 }
