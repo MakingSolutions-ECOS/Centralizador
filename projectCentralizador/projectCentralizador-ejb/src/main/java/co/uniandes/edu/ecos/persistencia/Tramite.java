@@ -29,6 +29,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tramite.findByCodigoTramite", query = "SELECT t FROM Tramite t WHERE t.codigoTramite = :codigoTramite"),
     @NamedQuery(name = "Tramite.findByCodigoTramiteCentralizador", query = "SELECT t FROM Tramite t WHERE t.codigoTramiteCentralizador = :codigoTramiteCentralizador")})
 public class Tramite implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CODIGO_TRAMITE_OPERADOR")
+    private int codigoTramiteOperador;
+    @JoinColumn(name = "CODIGO_TRAMITE_ESTADO", referencedColumnName = "CODIGO_TRAMITE_ESTADO")
+    @ManyToOne(optional = false)
+    private TramiteEstado codigoTramiteEstado;
+    @JoinColumn(name = "CODIGO_TRAMITE_DEFINICION", referencedColumnName = "CODIGO_TRAMITE_DEFINICION")
+    @ManyToOne(optional = false)
+    private TramiteDefinicion codigoTramiteDefinicion;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -95,6 +105,30 @@ public class Tramite implements Serializable {
     @Override
     public String toString() {
         return "co.uniandes.edu.ecos.persistencia.Tramite[ codigoTramite=" + codigoTramite + " ]";
+    }
+
+    public int getCodigoTramiteOperador() {
+        return codigoTramiteOperador;
+    }
+
+    public void setCodigoTramiteOperador(int codigoTramiteOperador) {
+        this.codigoTramiteOperador = codigoTramiteOperador;
+    }
+
+    public TramiteEstado getCodigoTramiteEstado() {
+        return codigoTramiteEstado;
+    }
+
+    public void setCodigoTramiteEstado(TramiteEstado codigoTramiteEstado) {
+        this.codigoTramiteEstado = codigoTramiteEstado;
+    }
+
+    public TramiteDefinicion getCodigoTramiteDefinicion() {
+        return codigoTramiteDefinicion;
+    }
+
+    public void setCodigoTramiteDefinicion(TramiteDefinicion codigoTramiteDefinicion) {
+        this.codigoTramiteDefinicion = codigoTramiteDefinicion;
     }
     
 }

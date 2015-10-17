@@ -2,6 +2,42 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="CentralizadorUP" transaction-type="JTA">
     <jta-data-source>jdbc/DataSourceCentralizador</jta-data-source>
+    <class>co.uniandes.edu.ecos.persistencia.TipoCiudadano</class>
+    <class>co.uniandes.edu.ecos.persistencia.Ciudadano</class>
+    <class>co.uniandes.edu.ecos.persistencia.Rol</class>
+    <class>co.uniandes.edu.ecos.persistencia.RolRecursoPermitido</class>
+    <class>co.uniandes.edu.ecos.persistencia.GrupoDocumento</class>
+    <class>co.uniandes.edu.ecos.persistencia.LogActividad</class>
+    <class>co.uniandes.edu.ecos.persistencia.Permiso</class>
+    <class>co.uniandes.edu.ecos.persistencia.Documento</class>
+    <class>co.uniandes.edu.ecos.persistencia.Usuario</class>
+    <class>co.uniandes.edu.ecos.persistencia.RecursoPermitido</class>
+    <class>co.uniandes.edu.ecos.persistencia.CapacidadAlmacenamiento</class>
+    <class>co.uniandes.edu.ecos.persistencia.DirectorioDocumento</class>
+    <class>co.uniandes.edu.ecos.persistencia.Publicidad</class>
+    <class>co.uniandes.edu.ecos.persistencia.GrupoCiudadano</class>
+    <class>co.uniandes.edu.ecos.persistencia.Tramite</class>
+    <class>co.uniandes.edu.ecos.persistencia.PublicidadImagen</class>
+    <class>co.uniandes.edu.ecos.persistencia.Grupo</class>
+    <class>co.uniandes.edu.ecos.persistencia.Directorio</class>
+    <class>co.uniandes.edu.ecos.persistencia.TramiteEstado</class>
+    <class>co.uniandes.edu.ecos.persistencia.Operador</class>
+    <class>co.uniandes.edu.ecos.persistencia.TramiteDefinicion</class>
+    <class>co.uniandes.edu.ecos.persistencia.DocumentoRequeridoTramite</class>
+    <class>co.uniandes.edu.ecos.persistencia.Suscripcion</class>
+    <class>co.uniandes.edu.ecos.persistencia.GrupoEmisor</class>
+    <class>co.uniandes.edu.ecos.persistencia.TipoIdentificacion</class>
+    <class>co.uniandes.edu.ecos.persistencia.CategoriasTramite</class>
+    <class>co.uniandes.edu.ecos.persistencia.Nacionalidad</class>
+    <class>co.uniandes.edu.ecos.persistencia.NotificacionEstado</class>
+    <class>co.uniandes.edu.ecos.persistencia.Departamento</class>
+    <class>co.uniandes.edu.ecos.persistencia.Notificacion</class>
+    <class>co.uniandes.edu.ecos.persistencia.MetadataTipoDocumento</class>
+    <class>co.uniandes.edu.ecos.persistencia.Emisor</class>
+    <class>co.uniandes.edu.ecos.persistencia.TipoEntidad</class>
+    <class>co.uniandes.edu.ecos.persistencia.TipoPersona</class>
+    <class>co.uniandes.edu.ecos.persistencia.RolPermiso</class>
+    <class>co.uniandes.edu.ecos.persistencia.Municipio</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

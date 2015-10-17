@@ -7,6 +7,7 @@ package co.uniandes.edu.ecos.persistencia;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,6 +33,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Permiso.findByCodigoGrupoUsuario", query = "SELECT p FROM Permiso p WHERE p.codigoGrupoUsuario = :codigoGrupoUsuario"),
     @NamedQuery(name = "Permiso.findByNombrePermiso", query = "SELECT p FROM Permiso p WHERE p.nombrePermiso = :nombrePermiso")})
 public class Permiso implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "ZONA_PERMISO")
+    private String zonaPermiso;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoPermiso")
+    private List<RolPermiso> rolPermisoList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -116,6 +124,23 @@ public class Permiso implements Serializable {
     @Override
     public String toString() {
         return "co.uniandes.edu.ecos.persistencia.Permiso[ codigoPermiso=" + codigoPermiso + " ]";
+    }
+
+    public String getZonaPermiso() {
+        return zonaPermiso;
+    }
+
+    public void setZonaPermiso(String zonaPermiso) {
+        this.zonaPermiso = zonaPermiso;
+    }
+
+    @XmlTransient
+    public List<RolPermiso> getRolPermisoList() {
+        return rolPermisoList;
+    }
+
+    public void setRolPermisoList(List<RolPermiso> rolPermisoList) {
+        this.rolPermisoList = rolPermisoList;
     }
     
 }
