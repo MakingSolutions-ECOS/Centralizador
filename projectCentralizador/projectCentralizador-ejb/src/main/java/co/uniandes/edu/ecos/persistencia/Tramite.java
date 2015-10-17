@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Tramite.findAll", query = "SELECT t FROM Tramite t"),
     @NamedQuery(name = "Tramite.findByCodigoTramite", query = "SELECT t FROM Tramite t WHERE t.codigoTramite = :codigoTramite"),
+    @NamedQuery(name = "Tramite.findByEmisorEstado", query = "SELECT t FROM Tramite t WHERE t. = :codigoTramite"),
     @NamedQuery(name = "Tramite.findByCodigoTramiteCentralizador", query = "SELECT t FROM Tramite t WHERE t.codigoTramiteCentralizador = :codigoTramiteCentralizador")})
 public class Tramite implements Serializable {
     @Basic(optional = false)
