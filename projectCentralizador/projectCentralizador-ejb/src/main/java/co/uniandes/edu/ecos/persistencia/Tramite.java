@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tramite.findByCodigoCiudadano", query = "SELECT t FROM Tramite t WHERE t.codigoCiudadano.codigoCiudadano = :codigoCiudadano"),
     @NamedQuery(name = "Tramite.findByCodigoTramiteEstado", query = "SELECT t FROM Tramite t WHERE t.codigoTramiteEstado = :codigoTramiteEstado"),   
     @NamedQuery(name = "Tramite.findByCodigoEstado", query = "SELECT t FROM Tramite t WHERE  t.codigoTramiteDefinicion.codigoEntidadEmisora.codigoEntidadEmisora = :codigoEntidadEmisora"),    
-    @NamedQuery(name = "Tramite.findByEstadoPendienteTramite", query = "SELECT t FROM Tramite t WHERE t.codigoTramiteEstado = :codigoTramiteEstado and t.codigoTramiteDefinicion.codigoEntidadEmisora = :codigoEntidadEmisora"),
+    @NamedQuery(name = "Tramite.findByEstadoPendienteTramite", query = "SELECT t FROM Tramite t WHERE t.codigoTramiteDefinicion.codigoEntidadEmisora.codigoEntidadEmisora = :codigoEntidadEmisora and t.codigoTramiteEstado.codigoTramiteEstado = :codigoTramiteEstado"),
     @NamedQuery(name = "Tramite.findByCodigoTramiteOperador", query = "SELECT t FROM Tramite t WHERE t.codigoTramiteOperador = :codigoTramiteOperador")})
 public class Tramite implements Serializable {
     private static final long serialVersionUID = 1L;

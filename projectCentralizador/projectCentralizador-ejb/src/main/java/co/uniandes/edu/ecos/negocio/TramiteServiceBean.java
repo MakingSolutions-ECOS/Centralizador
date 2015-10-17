@@ -138,11 +138,11 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor recibiÃ³ un argumento invÃ¡lido");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
             respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor enviÃ³ excepciÃ³n general");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor enviá excepcián general");
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;        
@@ -261,14 +261,26 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
         return respuestaTramite;
     }
 
-    public RespuestaTramite consultarTramitePendiente(Integer codigoEntidadEmisora){
+    
+    /**
+     * Metodo que retorna los tramites pendientes
+     * @param codigoEntidadEmisora
+     * @param codigoTramiteEstado
+     * @return 
+     */
+    @Override
+    public RespuestaTramite consultarTramiteEntidadEstado(Integer codigoEntidadEmisora, Integer codigoTramiteEstado){
     RespuestaTramite respuestaTramite = new RespuestaTramite();
         respuestaTramite.setTramiteDtos(new ArrayList<TramiteDto>());
         try {
-            List<Tramite> tramites = em.createNamedQuery("Tramite.findByEstadoPendienteTramite", Tramite.class).setParameter("codigoEntidadEmisora", codigoEntidadEmisora).getResultList();
+            List<Tramite> tramites = em.createNamedQuery("Tramite.findByEstadoPendienteTramite", Tramite.class).setParameter("codigoEntidadEmisora", codigoEntidadEmisora).setParameter("codigoTramiteEstado", codigoTramiteEstado).getResultList();
             for (Tramite tramite : tramites) {
                 TramiteDto tramiteDto = Mapper.copyCompleto(tramite, TramiteDto.class, true);
                 respuestaTramite.getTramiteDtos().add(tramiteDto);
+                                
+                // Se marca la el tramite como en proceso
+                tramite.setCodigoTramiteEstado(em.find(TramiteEstado.class, 2));
+                em.persist(tramite);
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);

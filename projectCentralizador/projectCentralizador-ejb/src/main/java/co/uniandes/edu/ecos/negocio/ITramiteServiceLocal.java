@@ -39,5 +39,7 @@ public interface ITramiteServiceLocal {
     public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorCategoria(CategoriasTramite codigoCategoria);
 
     public RespuestaService iniciarTramite(TramiteDto tramiteDto) throws PersistenceException;
+    
+    public RespuestaTramite consultarTramiteEntidadEstado(Integer codigoEntidadEmisora, Integer codigoTramiteEstado);
 
 }
