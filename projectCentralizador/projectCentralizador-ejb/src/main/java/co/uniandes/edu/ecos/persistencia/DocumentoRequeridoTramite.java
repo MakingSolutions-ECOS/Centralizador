@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Jimmy
+ * 
  */
 @Entity
 @Table(name = "DOCUMENTO_REQUERIDO_TRAMITE")
