@@ -9,7 +9,6 @@ import co.uniandes.edu.ecos.dto.EmisorDto;
 import co.uniandes.edu.service.Response.RespuestaEmisor;
 import co.uniandes.edu.service.Response.RespuestaService;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

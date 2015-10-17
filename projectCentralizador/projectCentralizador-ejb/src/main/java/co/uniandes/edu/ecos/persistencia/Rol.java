@@ -1,6 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package co.uniandes.edu.ecos.persistencia;
@@ -8,7 +7,6 @@ package co.uniandes.edu.ecos.persistencia;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author John Dany
+ * @author Jimmy
  */
 @Entity
 @Table(name = "ROL")
@@ -41,13 +39,13 @@ public class Rol implements Serializable {
     private Integer codigoRol;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 20)
     @Column(name = "NOMBRE_ROL")
     private String nombreRol;
     @OneToMany(mappedBy = "codigoRol")
-    private List<RolPermiso> rolPermisoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoRol")
     private List<Usuario> usuarioList;
+    @OneToMany(mappedBy = "codigoRol")
+    private List<RolRecursoPermitido> rolRecursoPermitidoList;
 
     public Rol() {
     }
@@ -78,21 +76,21 @@ public class Rol implements Serializable {
     }
 
     @XmlTransient
-    public List<RolPermiso> getRolPermisoList() {
-        return rolPermisoList;
-    }
-
-    public void setRolPermisoList(List<RolPermiso> rolPermisoList) {
-        this.rolPermisoList = rolPermisoList;
-    }
-
-    @XmlTransient
     public List<Usuario> getUsuarioList() {
         return usuarioList;
     }
 
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
+    }
+
+    @XmlTransient
+    public List<RolRecursoPermitido> getRolRecursoPermitidoList() {
+        return rolRecursoPermitidoList;
+    }
+
+    public void setRolRecursoPermitidoList(List<RolRecursoPermitido> rolRecursoPermitidoList) {
+        this.rolRecursoPermitidoList = rolRecursoPermitidoList;
     }
 
     @Override
