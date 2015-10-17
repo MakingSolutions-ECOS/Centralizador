@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TramiteDefinicion.findByCodigoTramiteDefinicion", query = "SELECT t FROM TramiteDefinicion t WHERE t.codigoTramiteDefinicion = :codigoTramiteDefinicion"),
     @NamedQuery(name = "TramiteDefinicion.findByDefinicion", query = "SELECT t FROM TramiteDefinicion t WHERE t.definicion = :definicion"),
     @NamedQuery(name = "TramiteDefinicion.findByHabilitado", query = "SELECT t FROM TramiteDefinicion t WHERE t.habilitado = :habilitado"),
+    @NamedQuery(name = "TramiteDefinicion.findByCodigoCategoria", query = "SELECT t FROM TramiteDefinicion t WHERE t.codigoCategoria = :codigoCategoria"),
+    @NamedQuery(name = "TramiteDefinicion.findByCodigoEmisor", query = "SELECT t FROM TramiteDefinicion t WHERE t.codigoEntidadEmisora = :codigoEntidadEmisora"),    
     @NamedQuery(name = "TramiteDefinicion.findByDescripcion", query = "SELECT t FROM TramiteDefinicion t WHERE t.descripcion = :descripcion")})
 public class TramiteDefinicion implements Serializable {
     private static final long serialVersionUID = 1L;

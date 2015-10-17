@@ -14,6 +14,7 @@ import java.util.List;
 public class TramiteDto {
 
     private Integer codigoTramite;
+    private Integer codigoTramiteOperador;
     private CiudadanoDto codigoCiudadano;
     private TramiteDefinicionDto codigoTramiteDefinicion;
     private TramiteEstadoDto codigoTramiteEstado;
@@ -26,6 +27,14 @@ public class TramiteDto {
     public void setCodigoTramite(Integer codigoTramite) {
         this.codigoTramite = codigoTramite;
     }
+    
+    public Integer getCodigoTramiteOperador() {
+        return codigoTramiteOperador;
+    }
+
+    public void setCodigoTramiteOperador(Integer codigoTramiteOperador) {
+        this.codigoTramiteOperador = codigoTramiteOperador;
+    }    
 
     public CiudadanoDto getCodigoCiudadano() {
         return codigoCiudadano;

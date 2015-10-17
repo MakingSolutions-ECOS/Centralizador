@@ -52,18 +52,18 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor recibiÃ³ un argumento invÃ¡lido");
             respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor envió excepción general");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor enviÃ³ excepciÃ³n general");
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;
     }
     
     /**
-     * Metodo encargado de obtener los tramites actuales dado el código de un ciudadano.
+     * Metodo encargado de obtener los tramites actuales dado el cÃ³digo de un ciudadano.
      * @param codigoCiudadano
      * @return respuestaTramite
      */
@@ -80,11 +80,11 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor recibiÃ³ un argumento invÃ¡lido");
             respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor envió excepción general");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor enviÃ³ excepciÃ³n general");
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;
@@ -109,11 +109,11 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor recibiÃ³ un argumento invÃ¡lido");
             respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor envió excepción general");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor enviÃ³ excepciÃ³n general");
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;        
@@ -138,11 +138,11 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor recibiÃ³ un argumento invÃ¡lido");
             respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de Emisor envió excepción general");
+            respuestaTramite.setErrorMensaje("La consulta de Emisor enviÃ³ excepciÃ³n general");
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;        
@@ -167,12 +167,12 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             return respuestaService;
         }catch (IllegalArgumentException argumentException) {
             respuestaService.setSePresentoError(true);
-            respuestaService.setErrorMensaje("Se recibió un argumento inválido");
+            respuestaService.setErrorMensaje("Se recibiÃ³ un argumento invÃ¡lido");
             respuestaService.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
             return null;
         } catch (Exception exception) {
             respuestaService.setSePresentoError(true);
-            respuestaService.setErrorMensaje("La creación envió excepción general");
+            respuestaService.setErrorMensaje("La creaciÃ³n enviÃ³ excepciÃ³n general");
             respuestaService.setErrorOriginal(exception.getMessage() + " " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
             return null;
         }        
@@ -195,11 +195,11 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite recibió un argumento inválido");
+            respuestaTramite.setErrorMensaje("La consulta de tramite recibiÃ³ un argumento invÃ¡lido");
             respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite envió excepción general");
+            respuestaTramite.setErrorMensaje("La consulta de tramite enviÃ³ excepciÃ³n general");
             respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;
@@ -223,12 +223,12 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite por Emisor recibió un argumento inválido");
-            respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+            respuestaTramite.setErrorMensaje("La consulta de tramite por Emisor recibiÃ³ un argumento invÃ¡lido");
+            respuestaTramite.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : " " + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite por Emisor envió excepción general");
-            respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+            respuestaTramite.setErrorMensaje("La consulta de tramite por Emisor enviÃ³ excepciÃ³n general");
+            respuestaTramite.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : " " + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;
     }
@@ -251,12 +251,12 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite por categoria recibió un argumento inválido");
-            respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+            respuestaTramite.setErrorMensaje("La consulta de tramite por categoria recibiÃ³ un argumento invÃ¡lido");
+            respuestaTramite.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : " " + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite por categoria envió excepción general");
-            respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+            respuestaTramite.setErrorMensaje("La consulta de tramite por categoria enviÃ³ excepciÃ³n general");
+            respuestaTramite.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : " " + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;
     }
@@ -272,12 +272,12 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
             }
         } catch (IllegalArgumentException argumentException) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite por estado recibió un argumento inválido");
-            respuestaTramite.setErrorOriginal(argumentException.getMessage() + " Causa: " + argumentException.getCause().getMessage());
+            respuestaTramite.setErrorMensaje("La consulta de tramite por estado recibiÃ³ un argumento invÃ¡lido");
+            respuestaTramite.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : " "  + " Causa: " + argumentException.getCause().getMessage());
         } catch (Exception exception) {
             respuestaTramite.setSePresentoError(true);
-            respuestaTramite.setErrorMensaje("La consulta de tramite por estado envió excepción general");
-            respuestaTramite.setErrorOriginal(exception.getMessage() + " Causa: " + exception.getCause().getMessage());
+            respuestaTramite.setErrorMensaje("La consulta de tramite por estado enviÃ³ excepciÃ³n general");
+            respuestaTramite.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : " " + " Causa: " + exception.getCause().getMessage());
         }
         return respuestaTramite;
         
