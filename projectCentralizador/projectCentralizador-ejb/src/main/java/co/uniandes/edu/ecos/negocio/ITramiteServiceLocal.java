@@ -42,4 +42,5 @@ public interface ITramiteServiceLocal {
     
     public RespuestaTramite consultarTramiteEntidadEstado(Integer codigoEntidadEmisora, Integer codigoTramiteEstado);
 
+    public RespuestaService CambiarEstadoTramite(Integer idTramite, Integer idEntidadEmisora, Integer idEstadoTramite);
 }

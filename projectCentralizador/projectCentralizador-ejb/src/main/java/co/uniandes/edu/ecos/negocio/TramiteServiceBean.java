@@ -13,6 +13,7 @@ import co.uniandes.edu.ecos.persistencia.Emisor;
 import co.uniandes.edu.ecos.persistencia.Tramite;
 import co.uniandes.edu.ecos.persistencia.TramiteDefinicion;
 import co.uniandes.edu.ecos.persistencia.TramiteEstado;
+import co.uniandes.edu.service.Response.RespuestaCiudadano;
 import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;
 import co.uniandes.edu.service.Response.RespuestaTramiteDefinicion;
@@ -295,5 +296,51 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
         
     }
 
-
+    /**
+     * Motodo que cambia el estado de un tramite
+     * @param codigoTramite
+     * @param codigoEntidadEmisora
+     * @param idEstadoTramite
+     * @return 
+     */
+    @Override
+    public RespuestaService CambiarEstadoTramite(Integer codigoTramite, Integer codigoEntidadEmisora, Integer idEstadoTramite) {
+        RespuestaService respuesta = new RespuestaService();
+        try {
+            //Obtener la entidad
+            Tramite tramite = em.createNamedQuery("Tramite.findByCodigoTramite", Tramite.class).setParameter("codigoTramite", codigoTramite).getSingleResult();
+            
+            if (tramite == null) {
+                //Setear la respuesta
+                respuesta.setSePresentoError(true);
+                respuesta.setErrorMensaje("El tramite con ese Id no está registrado en el sistema.");
+                return respuesta;
+            }
+            
+            //Cambiar de estado
+            if (tramite.getCodigoTramiteDefinicion().getCodigoEntidadEmisora().getCodigoEntidadEmisora() == codigoEntidadEmisora) {
+                tramite.setCodigoTramiteEstado(em.find(TramiteEstado.class, 2));
+                em.persist(tramite);
+                //Setear la respuesta
+                respuesta.setSePresentoError(false);
+                respuesta.setErrorMensaje("El cambio se realizó de forma correcta"); 
+            }
+            else
+            {
+                //Setear la respuesta
+                respuesta.setSePresentoError(true);
+                respuesta.setErrorMensaje("El tramite con ese Id no está asignado a esa entidad emisora.");  
+            }          
+            
+        } catch (IllegalArgumentException argumentException) {
+            respuesta.setSePresentoError(true);
+            respuesta.setErrorMensaje("La consulta de tramite por estado recibiÃ³ un argumento invÃ¡lido");
+            respuesta.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : " "  + " Causa: " + argumentException.getCause().getMessage());
+        } catch (Exception exception) {
+            respuesta.setSePresentoError(true);
+            respuesta.setErrorMensaje("La consulta de tramite por estado enviÃ³ excepciÃ³n general");
+            respuesta.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : " " + " Causa: " + exception.getCause().getMessage());
+        }
+        return respuesta;
+    }
 }

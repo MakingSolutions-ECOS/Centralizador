@@ -130,5 +130,18 @@ public class TramiteService {
         Emisor emisor = new Emisor(codigoEntidadEmisora);        
         respuestaTramite = tramiteServiceBean.obtenerTramitePorEntidad(emisor);
         return respuestaTramite;
-    }        
+    }    
+    
+    /**
+     * Metodo que cambia el estado del tramite a notificado
+     * @param idTramite
+     * @param idEntidadEmisora
+     * @return 
+     */
+    @WebMethod(operationName = "obtenerTramitesPendientesEntidad")
+    public RespuestaService cambiarEstadoTramiteProceso(Integer idTramite, Integer idEntidadEmisora) {
+        RespuestaService respuestaService = new RespuestaService();
+        respuestaService = tramiteServiceBean.CambiarEstadoTramite(idTramite, idEntidadEmisora, 3);
+        return respuestaService;
+    }      
 }

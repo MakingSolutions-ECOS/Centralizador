@@ -1,6 +1,7 @@
 package co.uniandes.edu.ecos.services;
 
 import co.uniandes.edu.ecos.negocio.ITramiteServiceLocal;
+import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;
 import javax.ejb.EJB;
 import javax.jws.WebService;
@@ -28,5 +29,17 @@ public class TramiteServiceEmisor {
         respuestaTramite = tramiteServiceBean.consultarTramiteEntidadEstado(codigoEntidadEmisora, 1);
         return respuestaTramite;
     }
-      
+    
+    /**
+     * Metodo que cambia el estado del tramite a Terminado
+     * @param idTramite
+     * @param idEntidadEmisora
+     * @return 
+     */
+    @WebMethod(operationName = "obtenerTramitesPendientesEntidad")
+    public RespuestaService cambiarEstadoTramiteProceso(Integer idTramite, Integer idEntidadEmisora) {
+        RespuestaService respuestaService = new RespuestaService();
+        respuestaService = tramiteServiceBean.CambiarEstadoTramite(idTramite, idEntidadEmisora, 3);
+        return respuestaService;
+    }      
 }
