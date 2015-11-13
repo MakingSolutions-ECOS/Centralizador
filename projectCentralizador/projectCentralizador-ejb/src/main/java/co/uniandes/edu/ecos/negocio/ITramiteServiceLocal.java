@@ -6,6 +6,7 @@
 package co.uniandes.edu.ecos.negocio;
 
 import co.uniandes.edu.ecos.dto.EmisorDto;
+import co.uniandes.edu.ecos.dto.SolicitudTramiteDto;
 import co.uniandes.edu.ecos.dto.TramiteDto;
 import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
@@ -38,7 +39,7 @@ public interface ITramiteServiceLocal {
 
     public RespuestaTramiteDefinicion obtenerTramitesDefinicionPorCategoria(CategoriasTramite codigoCategoria);
 
-    public RespuestaService iniciarTramite(TramiteDto tramiteDto) throws PersistenceException;
+    public RespuestaService iniciarTramite(SolicitudTramiteDto solicitudTramiteDto) throws PersistenceException;
     
     public RespuestaTramite consultarTramiteEntidadEstado(Integer codigoEntidadEmisora, Integer codigoTramiteEstado);
 

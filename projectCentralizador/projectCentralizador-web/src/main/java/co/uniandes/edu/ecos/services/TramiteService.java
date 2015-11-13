@@ -1,11 +1,9 @@
 package co.uniandes.edu.ecos.services;
 
-import co.uniandes.edu.ecos.dto.EmisorDto;
-import co.uniandes.edu.ecos.dto.TramiteDto;
+import co.uniandes.edu.ecos.dto.SolicitudTramiteDto;
 import co.uniandes.edu.ecos.negocio.ITramiteServiceLocal;
 import co.uniandes.edu.ecos.persistencia.CategoriasTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
-import co.uniandes.edu.ecos.persistencia.TramiteDefinicion;
 import co.uniandes.edu.ecos.persistencia.TramiteEstado;
 import co.uniandes.edu.service.Response.RespuestaService;
 import co.uniandes.edu.service.Response.RespuestaTramite;
@@ -44,10 +42,10 @@ public class TramiteService {
      * @return RespuestaTramite
      */
     @WebMethod(operationName = "iniciarTramite")
-    public RespuestaService iniciarTramite(TramiteDto tramiteDto) {
+    public RespuestaService iniciarTramite(SolicitudTramiteDto solicitudTramiteDto) {
         RespuestaService respuestaService = new RespuestaService();
         try {            
-            respuestaService = tramiteServiceBean.iniciarTramite(tramiteDto);
+            respuestaService = tramiteServiceBean.iniciarTramite(solicitudTramiteDto);
         } catch (Exception e) {
             respuestaService = new RespuestaService();
             respuestaService.setErrorMensaje(e.getMessage());

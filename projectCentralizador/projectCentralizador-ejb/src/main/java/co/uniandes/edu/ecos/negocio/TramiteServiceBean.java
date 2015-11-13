@@ -5,6 +5,7 @@
  */
 package co.uniandes.edu.ecos.negocio;
 
+import co.uniandes.edu.ecos.dto.SolicitudTramiteDto;
 import co.uniandes.edu.ecos.utilidad.Mapper;
 import co.uniandes.edu.ecos.dto.TramiteDefinicionDto;
 import co.uniandes.edu.ecos.dto.TramiteDto;
@@ -154,14 +155,14 @@ public class TramiteServiceBean implements ITramiteServiceLocal {
     /**
      * Metodo encargado de obtener todos los tramites
      *
-     * @param tramiteDto
+     * @param solicitudTramiteDto
      * @return RespuestaService
      */
     @Override
-    public RespuestaService iniciarTramite(TramiteDto tramiteDto) throws PersistenceException{
+    public RespuestaService iniciarTramite(SolicitudTramiteDto solicitudTramiteDto) throws PersistenceException{
         RespuestaService respuestaService = new RespuestaService();
         try {
-            Tramite tramite = Mapper.copyCompleto(tramiteDto, Tramite.class, false);
+            Tramite tramite = Mapper.copyCompleto(solicitudTramiteDto.getTramiteDto(), Tramite.class, false);
             em.persist(tramite);
             respuestaService.setRespuestaService("Se ha iniciado el tramite.");
             respuestaService.setSePresentoError(false);
