@@ -136,7 +136,7 @@ public class TramiteService {
      * @param idEntidadEmisora
      * @return 
      */
-    @WebMethod(operationName = "obtenerTramitesPendientesEntidad")
+    @WebMethod(operationName = "cambiarEstadoTramiteProceso")
     public RespuestaService cambiarEstadoTramiteProceso(Integer idTramite, Integer idEntidadEmisora) {
         RespuestaService respuestaService = new RespuestaService();
         respuestaService = tramiteServiceBean.CambiarEstadoTramite(idTramite, idEntidadEmisora, 3);
