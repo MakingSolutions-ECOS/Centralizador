@@ -26,5 +26,7 @@ public interface INotificacionServiceLocal {
      * @return colección de los estados.
      */
     RespuestaNotificacionEstado obtenerNoficacionEstados();
+    
+    RespuestaService cambiarEstadoNotificacion(Integer codigoNotificacion) throws PersistenceException;
 
 }

@@ -67,4 +67,19 @@ public class NotificacionService {
         respuestaNotificacionEstado = notificacionServiceBean.obtenerNoficacionEstados();
         return respuestaNotificacionEstado;
     }
+    
+    @WebMethod(operationName = "cambiarEstadoNotificacion")
+    public RespuestaService cambiarEstadoNotificacion(Integer codigoNotificacion) {
+        RespuestaService respuestaService = new RespuestaService();
+        try {
+            respuestaService = notificacionServiceBean.cambiarEstadoNotificacion(codigoNotificacion);
+        } catch (PersistenceException e) {
+            respuestaService = new RespuestaService();
+            respuestaService.setErrorMensaje(e.getMessage());
+        } catch (Exception e) {
+            respuestaService = new RespuestaService();
+            respuestaService.setErrorMensaje(e.getMessage());
+        }
+        return respuestaService;
+    }    
 }

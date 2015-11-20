@@ -68,7 +68,7 @@ public class NotificacionServiceBean implements INotificacionServiceLocal {
             List<Notificacion> notifiaciones = em.createNamedQuery("Notificacion.findByCiudadano", Notificacion.class)
                     .setParameter("codigoCiudadano", codigoCiudadano)
                     .getResultList();
-            for (Notificacion notifiacion : notifiaciones) {
+            for (Notificacion notifiacion : notifiaciones) {                
                 NotificacionDto notificacionDto = Mapper.copyCompleto(notifiacion, NotificacionDto.class, true);
                 respuestaNotificacion.getNotificacionDto().add(notificacionDto);
             }
@@ -144,5 +144,30 @@ public class NotificacionServiceBean implements INotificacionServiceLocal {
         }
 
         return respuestaNotificacion;
+    }
+
+    @Override
+    public RespuestaService cambiarEstadoNotificacion(Integer codigoNotificacion) throws PersistenceException {
+        
+        RespuestaService respuestaService = new RespuestaService();
+       try {                        
+            Notificacion notificacion = em.createNamedQuery("Notificacion.findByCodigoNotificacion", Notificacion.class).setParameter("codigoNotificacion", codigoNotificacion).getSingleResult();
+            notificacion.setCodigoNotificacionEstado(new NotificacionEstado(2));
+            em.merge(notificacion);
+            respuestaService.setRespuestaService("Se ha modificado el estado de la notifiación.");
+            respuestaService.setSePresentoError(false);
+            return respuestaService;
+        } catch (IllegalArgumentException argumentException) {
+            respuestaService.setSePresentoError(true);
+            respuestaService.setErrorMensaje("Se recibió un argumento inválido");
+            respuestaService.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : " " + " Causa: " + argumentException.getCause().getMessage());
+            return null;
+        } catch (Exception exception) {
+            respuestaService.setSePresentoError(true);
+            respuestaService.setErrorMensaje("La modificación envió excepción general");
+            respuestaService.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : " " + " " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            return null;
+        }        
+        
     }
 }
