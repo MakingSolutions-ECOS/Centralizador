@@ -23,8 +23,8 @@ public class TramiteServiceEmisor {
      * @param codigoEntidadEmisora
      * @return RespuestaTramite
      */
-    @WebMethod(operationName = "obtenerTramitesPendientesEntidad")
-    public RespuestaTramite obtenerTramitesPendientesEntidad(Integer codigoEntidadEmisora) {
+    @WebMethod(operationName = "obtenerTramitesPendientesEntidadEmisor")
+    public RespuestaTramite obtenerTramitesPendientesEntidadEmisor(Integer codigoEntidadEmisora) {
         RespuestaTramite respuestaTramite = new RespuestaTramite();
         respuestaTramite = tramiteServiceBean.consultarTramiteEntidadEstado(codigoEntidadEmisora, 1);
         return respuestaTramite;
@@ -36,8 +36,8 @@ public class TramiteServiceEmisor {
      * @param idEntidadEmisora
      * @return 
      */
-    @WebMethod(operationName = "obtenerTramitesPendientesEntidad")
-    public RespuestaService cambiarEstadoTramiteProceso(Integer idTramite, Integer idEntidadEmisora) {
+    @WebMethod(operationName = "cambiarEstadoTramiteProcesoEmisor")
+    public RespuestaService cambiarEstadoTramiteProcesoEmisor(Integer idTramite, Integer idEntidadEmisora) {
         RespuestaService respuestaService = new RespuestaService();
         respuestaService = tramiteServiceBean.CambiarEstadoTramite(idTramite, idEntidadEmisora, 3);
         return respuestaService;
