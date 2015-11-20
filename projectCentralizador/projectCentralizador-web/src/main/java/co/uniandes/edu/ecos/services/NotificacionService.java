@@ -33,10 +33,10 @@ public class NotificacionService {
             respuestaService = notificacionServiceBean.asignarNotificacionCiudadano(notificacionDto);
         } catch (PersistenceException e) {
             respuestaService = new RespuestaService();
-            respuestaService.setErrorMensaje(e.getMessage());
+            respuestaService.setErrorMensaje(e.getMessage().toString());
         } catch (Exception e) {
             respuestaService = new RespuestaService();
-            respuestaService.setErrorMensaje(e.getMessage());
+            respuestaService.setErrorMensaje(e.getMessage().toString());
         }
         return respuestaService;
     }

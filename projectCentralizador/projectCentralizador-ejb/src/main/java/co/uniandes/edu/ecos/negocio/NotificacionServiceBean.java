@@ -47,13 +47,13 @@ public class NotificacionServiceBean implements INotificacionServiceLocal {
             return respuestaService;
         } catch (IllegalArgumentException argumentException) {
             respuestaService.setSePresentoError(true);
-            respuestaService.setErrorMensaje("Se recibió un argumento inválido");
-            respuestaService.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : " " + " Causa: " + argumentException.getCause().getMessage());
+            respuestaService.setErrorMensaje("Se recibió un argumento inválido");            
+            respuestaService.setErrorOriginal(argumentException.getMessage() != null ? argumentException.getMessage() : " " + " Causa: " + argumentException.getCause() != null ? " Causa: " + argumentException.getCause().getMessage() : "");
             return null;
         } catch (Exception exception) {
             respuestaService.setSePresentoError(true);
-            respuestaService.setErrorMensaje("La creación envió excepción general");
-            respuestaService.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : " " + " " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
+            respuestaService.setErrorMensaje("La creación envió excepción general");            
+            respuestaService.setErrorOriginal(exception.getMessage() != null ? exception.getMessage() : " " + " Causa: " + exception.getCause() != null ? " Causa: " + exception.getCause().getMessage() : "");
             return null;
         }
 
