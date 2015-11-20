@@ -6,10 +6,14 @@
 package co.uniandes.edu.ecos.negocio;
 
 import co.uniandes.edu.ecos.dto.EmisorDto;
+import co.uniandes.edu.ecos.dto.TramiteDefinicionDto;
+import co.uniandes.edu.ecos.persistencia.DocumentoRequeridoTramite;
 import co.uniandes.edu.ecos.persistencia.Emisor;
+import co.uniandes.edu.ecos.persistencia.TramiteDefinicion;
 import co.uniandes.edu.ecos.utilidad.Mapper;
 import co.uniandes.edu.service.Response.RespuestaEmisor;
 import co.uniandes.edu.service.Response.RespuestaService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -36,9 +40,20 @@ public class EmisorServiceBean implements IEmisorServiceLocal {
         try {
             List<Emisor> emisores = em.createNamedQuery("Emisor.findAll", Emisor.class).getResultList();
             for (Emisor emisor : emisores) {
+                
                 EmisorDto emisorDto = Mapper.copyCompleto(emisor, EmisorDto.class, true);
+                
+                List<TramiteDefinicionDto> listaTramitesNuevos = new ArrayList<>();
+                
+                for (int i = 0; i < emisor.getTramiteDefinicionList().size(); i++) {
+                    TramiteDefinicion tramiteDefinicion = emisor.getTramiteDefinicionList().get(i);
+                    listaTramitesNuevos.add(Mapper.copyCompleto(tramiteDefinicion, TramiteDefinicionDto.class, true));
+                }
+                emisorDto.setTramiteDefinicionList(listaTramitesNuevos);
+                
                 emisorRes.getEmisores().add(emisorDto);
             }
+            
         } catch (IllegalArgumentException argumentException) {
             emisorRes.setSePresentoError(true);
             emisorRes.setErrorMensaje("La consulta de Emisor recibió un argumento inválido");

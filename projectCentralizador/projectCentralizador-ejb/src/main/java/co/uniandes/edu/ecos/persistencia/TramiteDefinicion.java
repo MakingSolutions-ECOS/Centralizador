@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -58,7 +59,7 @@ public class TramiteDefinicion implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramiteDefinicion")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramiteDefinicion", fetch = FetchType.EAGER)
     private List<DocumentoRequeridoTramite> documentoRequeridoTramiteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramiteDefinicion")
     private List<Tramite> tramiteList;
