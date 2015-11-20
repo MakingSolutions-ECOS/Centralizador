@@ -156,7 +156,7 @@ public class OperadorServiceBean implements IOperadorServiceLocal {
                     respuestaOperador.setSePresentoError(false);
                 }
             } else {
-
+                return respuesta;
             }
 
         } catch (Exception exception) {
