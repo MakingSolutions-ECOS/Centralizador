@@ -38,11 +38,12 @@ public class NotificacionServiceBean implements INotificacionServiceLocal {
         RespuestaService respuestaService = new RespuestaService();
         try {
             NotificacionEstadoDto notificacionEstadoDto = new NotificacionEstadoDto();
+            //Estado 1 es no leído
             notificacionEstadoDto.setCodigoEstado(1);
             notificacionDto.setCodigoNotificacionEstado(notificacionEstadoDto);
             Notificacion notificacion = Mapper.copyCompleto(notificacionDto, Notificacion.class, false);
             em.persist(notificacion);
-            respuestaService.setRespuestaService("Se ha generado la notifiación.");
+            respuestaService.setRespuestaService("Se ha generado la notificación.");
             respuestaService.setSePresentoError(false);
             return respuestaService;
         } catch (IllegalArgumentException argumentException) {
