@@ -5,7 +5,9 @@
 package co.uniandes.edu.ecos.persistencia;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,9 +15,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -52,6 +56,8 @@ public class Tramite implements Serializable {
     @JoinColumn(name = "CODIGO_CIUDADANO", referencedColumnName = "CODIGO_CIUDADANO")
     @ManyToOne(optional = false)
     private Ciudadano codigoCiudadano;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTramite")
+    private List<LinkDescargaTramite> linkDescargaTramiteList;
 
     public Tramite() {
     }
@@ -128,6 +134,15 @@ public class Tramite implements Serializable {
     @Override
     public String toString() {
         return "co.uniandes.edu.ecos.persistencia.Tramite[ codigoTramite=" + codigoTramite + " ]";
+    }
+    
+    @XmlTransient
+    public List<LinkDescargaTramite> getLinkDescargaTramiteList() {
+        return linkDescargaTramiteList;
+    }
+
+    public void setLinkDescargaTramiteList(List<LinkDescargaTramite> linkDescargaTramiteList) {
+        this.linkDescargaTramiteList = linkDescargaTramiteList;
     }
     
 }
