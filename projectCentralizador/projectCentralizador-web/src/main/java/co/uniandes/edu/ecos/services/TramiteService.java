@@ -134,12 +134,13 @@ public class TramiteService {
      * Metodo que cambia el estado del tramite a notificado
      * @param idTramite
      * @param idEntidadEmisora
+     * @param idEstado
      * @return 
      */
     @WebMethod(operationName = "cambiarEstadoTramiteProceso")
-    public RespuestaService cambiarEstadoTramiteProceso(Integer idTramite, Integer idEntidadEmisora) {
+    public RespuestaService cambiarEstadoTramiteProceso(Integer idTramite, Integer idEntidadEmisora,Integer idEstado) {
         RespuestaService respuestaService = new RespuestaService();
-        respuestaService = tramiteServiceBean.CambiarEstadoTramite(idTramite, idEntidadEmisora, 3);
+        respuestaService = tramiteServiceBean.CambiarEstadoTramite(idTramite, idEntidadEmisora, idEstado);
         return respuestaService;
     }      
 }
