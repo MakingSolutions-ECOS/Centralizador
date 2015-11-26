@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Your Name
+ * @author Angela Suarez
  */
 @Entity
 @Table(name = "LINK_DESCARGA_TRAMITE")

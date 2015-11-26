@@ -20,7 +20,7 @@ import javax.persistence.PersistenceException;
 
 /**
  *
- * @author Usuario
+ * @author Sergio Forero
  */
 @Local
 public interface ITramiteServiceLocal {

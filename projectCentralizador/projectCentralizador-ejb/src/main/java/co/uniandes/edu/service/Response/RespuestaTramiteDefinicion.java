@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Usuario
+ * @author Sergio Forero
  */
 public class RespuestaTramiteDefinicion extends RespuestaService {
 

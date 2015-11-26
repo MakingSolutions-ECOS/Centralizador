@@ -2,7 +2,7 @@ package co.uniandes.edu.service.Response;
 
 /**
  *
- * @author Your Name
+ * @author Sergio Forero
  */
 public class RespuestaService {
     

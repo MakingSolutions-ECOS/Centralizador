@@ -7,7 +7,7 @@ package co.uniandes.edu.ecos.dto;
 
 /**
  *
- * @author Your Name
+ * @author Sergio Forero
  */
 public class SolicitudTramiteDto {
     private CiudadanoDto ciudadano;

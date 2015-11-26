@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 
+ * @author  Angela Suarez
  */
 @Entity
 @Table(name = "CATEGORIAS_TRAMITE")

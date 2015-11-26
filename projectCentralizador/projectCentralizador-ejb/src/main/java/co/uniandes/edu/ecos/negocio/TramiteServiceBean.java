@@ -28,7 +28,7 @@ import javax.persistence.PersistenceException;
 
 /**
  *
- * @author Usuario
+ * @author Sergio Forero
  */
 @PermitAll
 @Stateless
