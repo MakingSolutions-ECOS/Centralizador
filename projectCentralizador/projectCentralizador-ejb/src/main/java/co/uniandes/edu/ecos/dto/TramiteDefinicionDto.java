@@ -20,7 +20,7 @@ public class TramiteDefinicionDto {
     private CategoriasTramiteDto codigoCategoria;
     private EmisorDto codigoEntidadEmisora;
     private List<DocumentoRequeridoTramiteDto> documentoRequeridoTramiteList;
-
+    
     public Integer getCodigoTramiteDefinicion() {
         return codigoTramiteDefinicion;
     }
